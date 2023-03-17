@@ -6,34 +6,34 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 相册数据的实体类
+ * SPU详情
  *
  * @author java@tedu.cn
  * @version 0.0.1
  */
 @Data
-public class Album implements Serializable {
+public class SpuDetail implements Serializable {
 
     /**
      * 数据id
      */
     private Long id;
+
     /**
-     * 相册名称
+     * SPU id
      */
-    private String name;
+    private Long spuId;
+
     /**
-     * 相册简介
+     * SPU详情，应该使用HTML富文本，通常内容是若干张图片
      */
-    private String description;
-    /**
-     * 排序序号
-     */
-    private Integer sort;
+    private String detail;
+
     /**
      * 数据创建时间
      */
     private LocalDateTime gmtCreate;
+
     /**
      * 数据最后修改时间
      */

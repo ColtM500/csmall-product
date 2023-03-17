@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chen.csmall.product.mapper.PictureMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_picture (
+           album_id, url, is_cover, description, width, height, sort
+        ) VALUES (
+                     #{albumId}, #{url}, #{isCover},#{description},
+                     #{width},#{height},#{sort}
+                 )
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM pms_picture WHERE id=#{id}
+    </delete>
+
+</mapper>

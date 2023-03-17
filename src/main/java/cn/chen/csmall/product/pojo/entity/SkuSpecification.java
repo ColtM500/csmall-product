@@ -6,34 +6,54 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 相册数据的实体类
+ * SKU数据
  *
  * @author java@tedu.cn
  * @version 0.0.1
  */
 @Data
-public class Album implements Serializable {
+public class SkuSpecification implements Serializable {
 
     /**
      * 数据id
      */
     private Long id;
+
     /**
-     * 相册名称
+     * SKU id
      */
-    private String name;
+    private Long skuId;
+
     /**
-     * 相册简介
+     * 属性id
      */
-    private String description;
+    private Long attributeId;
+
     /**
-     * 排序序号
+     * 属性名称
+     */
+    private String attributeName;
+
+    /**
+     * 属性值
+     */
+    private String attributeValue;
+
+    /**
+     * 自动补充的计量单位
+     */
+    private String unit;
+
+    /**
+     * 自定义排序序号
      */
     private Integer sort;
+
     /**
      * 数据创建时间
      */
     private LocalDateTime gmtCreate;
+
     /**
      * 数据最后修改时间
      */

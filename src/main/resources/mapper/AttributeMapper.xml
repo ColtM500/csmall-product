@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chen.csmall.product.mapper.AttributeMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_attribute (
+        template_id , name, description, type, input_type, value_list,
+        unit, sort, is_allow_customize
+        )
+        VALUES (
+        #{templateId}, #{name}, #{description}, #{type}, #{inputType}, #{valueList},
+        #{unit}, #{sort}, #{isAllowCustomize}
+        )
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM pms_attribute WHERE id=#{id}
+    </delete>
+
+</mapper>

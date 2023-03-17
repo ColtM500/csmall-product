@@ -6,34 +6,34 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 相册数据的实体类
+ * 类别与属性模板的关联
  *
  * @author java@tedu.cn
  * @version 0.0.1
  */
 @Data
-public class Album implements Serializable {
+public class CategoryAttributeTemplate implements Serializable {
 
     /**
      * 数据id
      */
     private Long id;
+
     /**
-     * 相册名称
+     * 类别id
      */
-    private String name;
+    private Long categoryId;
+
     /**
-     * 相册简介
+     * 属性模板id
      */
-    private String description;
-    /**
-     * 排序序号
-     */
-    private Integer sort;
+    private Long attributeTemplateId;
+
     /**
      * 数据创建时间
      */
     private LocalDateTime gmtCreate;
+
     /**
      * 数据最后修改时间
      */

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.chen.csmall.product.mapper.SpuDetailMapper">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_spu_detail (
+           spu_id, detail
+        ) VALUES (
+                     #{spuId}, #{detail}
+                 )
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM pms_spu_detail WHERE id=#{id}
+    </delete>
+
+</mapper>
