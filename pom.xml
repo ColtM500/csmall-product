@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- 模块版本，是相对固定的 -->
     <modelVersion>4.0.0</modelVersion>
+
+    <!-- 父级项目的版本，注意使用的版本即可 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <!--当前项目信息-->
-    <groupId>cn.chen</groupId>
-    <artifactId>csmall-product</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
-    <!--属性配置-->
+    <!-- 当前项目的信息 -->
+    <groupId>cn.tedu</groupId>
+    <artifactId>csmall-product</artifactId>
+    <version>0.0.1</version>
+
+    <!-- 属性配置 -->
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
+    <!-- 当前项目使用到的各依赖项 -->
+    <!-- scope取值为test：此依赖项仅用于测试，不会参与项目的部署，并且，仅能用于src/test下的代码 -->
     <dependencies>
+        <!-- Spring Boot的基础依赖项 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+        <!-- Spring Boot测试的依赖项-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -30,8 +39,15 @@
         </dependency>
     </dependencies>
 
+    <!-- 构建项目的配置 -->
     <build>
+        <!-- 若干个插件 -->
         <plugins>
+            <!-- Spring Boot对Maven的支持的插件 -->
+            <!-- 用于将项目打包，打包时会将当前项目的各依赖包也全部打进同一个jar包文件 -->
+            <!-- 如果此代码报错，可以选择： -->
+            <!-- 1. 将以下代码删除，后续将无法打完整的包，但对开发和在IntelliJ IDEA中运行没有影响 -->
+            <!-- 2. 显式的配置version标签，指定和Spring Boot父项目相同的版本号 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
