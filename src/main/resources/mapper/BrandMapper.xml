@@ -16,4 +16,71 @@
     <delete id="deleteById">
         DELETE FROM pms_brand WHERE id=#{id}
     </delete>
+
+    <!--    int count();-->
+    <select id="count" resultType="int">
+        SELECT  COUNT(*) FROM pms_brand
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM pms_brand
+        WHERE id=#{id}
+    </select>
+
+    <sql id="StandardQueryFields">
+        <if test="true">
+            id, name, pinyin, logo, description,
+            keywords, sort, sales, product_count, comment_count,
+            positive_comment_count, enable
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMap" type="cn.chen.csmall.product.pojo.vo.BrandStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pinyin" property="pinyin"/>
+        <result column="logo" property="logo"/>
+        <result column="description" property="description"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="sales" property="sales"/>
+        <result column="productCount" property="productCount"/>
+        <result column="commentCount" property="commentCount"/>
+        <result column="positiveCommentCount" property="positiveCommentCount"/>
+        <result column="enable" property="enable"/>
+    </resultMap>
+
+    <!--    List<AlbumListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListResultMap"></include>
+        FROM
+        pms_brand
+        ORDER BY
+        sort DESC, id DESC
+    </select>
+
+    <sql id="ListResultMap">
+        <if test="true">
+            id, name, pinyin, keywords, sort
+        </if>
+    </sql>
+
+    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.BrandListItemVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pinyin" property="pinyin"/>
+        <result column="logo" property="logo"/>
+        <result column="description" property="description"/>
+        <result column="keywords" property="keywords"/>
+        <result column="sort" property="sort"/>
+        <result column="sales" property="sales"/>
+        <result column="productCount" property="productCount"/>
+        <result column="commentCount" property="commentCount"/>
+        <result column="positiveCommentCount" property="positiveCommentCount"/>
+        <result column="enable" property="enable"/>
+    </resultMap>
 </mapper>

@@ -1,8 +1,12 @@
 package cn.chen.csmall.product.pojo.vo;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class AttributeStandardVO {
+@Data
+public class AttributeStandardVO implements Serializable {
     /**
      * 数据id
      */

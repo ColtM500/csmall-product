@@ -12,12 +12,9 @@ public interface AttributeMapper {
 
     int deleteById(Long id);
 
-    //TODO:统计属性的数量
     int count();
 
-    //TODO:根据ID查询属性的详情
     AttributeStandardVO getStandardById(Long id);
 
-    //TODO:查询属性列表
     List<AlbumListItemVO> list();
 }
