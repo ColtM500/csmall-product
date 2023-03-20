@@ -15,4 +15,51 @@
         DELETE FROM pms_spu_detail WHERE id=#{id}
     </delete>
 
+    <!--    int count();-->
+    <select id="count" resultType="int">
+        SELECT  COUNT(*) FROM pms_sku_specification
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM pms_spu_detail
+        WHERE id=#{id}
+    </select>
+
+    <sql id="StandardQueryFields">
+        <if test="true">
+            id, spu_id, detail
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMap" type="cn.chen.csmall.product.pojo.vo.SpuDetailStandardVO">
+        <id column="id" property="id"/>
+        <result column="spu_id" property="spuId"/>
+        <result column="detail" property="detail"/>
+    </resultMap>
+
+    <!--    List<AlbumListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListResultMap"></include>
+        FROM
+        pms_spu_detail
+        ORDER BY
+        id DESC
+    </select>
+
+    <sql id="ListResultMap">
+        <if test="true">
+            id, spu_id, detail
+        </if>
+    </sql>
+
+    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.SpuDetailListItemVO">
+        <id column="id" property="id"/>
+        <result column="spu_id" property="spuId"/>
+        <result column="detail" property="detail"/>
+    </resultMap>
+
 </mapper>
