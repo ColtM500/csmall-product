@@ -27,4 +27,113 @@
         DELETE FROM pms_spu WHERE id=#{id}
     </delete>
 
+    <!--    int count();-->
+    <select id="count" resultType="int">
+        SELECT  COUNT(*) FROM pms_spu
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM pms_spu
+        WHERE id=#{id}
+    </select>
+
+    <sql id="StandardQueryFields">
+        <if test="true">
+            id,
+            name, type_number, title, description, list_price,
+            stock, stock_threshold, unit, brand_id, brand_name,
+            category_id, category_name, attribute_template_id, album_id, pictures,
+            keywords, tags, sales, comment_count, positive_comment_count,
+            sort, is_deleted, is_published, is_new_arrival, is_recommend,
+            is_checked, check_user
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMap" type="cn.chen.csmall.product.pojo.vo.SpuStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type_number" property="typeNumber"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="list_price" property="listPrice"/>
+        <result column="stock" property="stock"/>
+        <result column="stock_threshold" property="stockThreshold"/>
+        <result column="unit" property="unit"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="brand_name" property="brandName"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="attribute_template_id" property="attributeTemplateId"/>
+        <result column="album_id" property="albumId"/>
+        <result column="pictures" property="pictures"/>
+        <result column="keywords" property="keywords"/>
+        <result column="tags" property="tags"/>
+        <result column="sales" property="sales"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="positive_comment_count" property="positiveCommentCount"/>
+        <result column="sort" property="sort"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="is_published" property="isPublished"/>
+        <result column="is_new_arrival" property="isNewArrival"/>
+        <result column="is_recommend" property="isRecommend"/>
+        <result column="is_checked" property="isChecked"/>
+        <result column="check_user" property="checkUser"/>
+    </resultMap>
+
+    <!--    List<AlbumListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListResultMap"></include>
+        FROM
+        pms_spu
+        ORDER BY
+        sort DESC, id DESC
+    </select>
+
+    <sql id="ListResultMap">
+        <if test="true">
+            id,
+            name, type_number, title, description, list_price,
+            stock, stock_threshold, unit, brand_id, brand_name,
+            category_id, category_name, attribute_template_id, album_id, pictures,
+            keywords, tags, sales, comment_count, positive_comment_count,
+            sort, is_deleted, is_published, is_new_arrival, is_recommend,
+            is_checked, check_user
+        </if>
+    </sql>
+
+    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.SpuListItemVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type_number" property="typeNumber"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="list_price" property="listPrice"/>
+        <result column="stock" property="stock"/>
+        <result column="stock_threshold" property="stockThreshold"/>
+        <result column="unit" property="unit"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="brand_name" property="brandName"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="attribute_template_id" property="attributeTemplateId"/>
+        <result column="album_id" property="albumId"/>
+        <result column="pictures" property="pictures"/>
+        <result column="keywords" property="keywords"/>
+        <result column="tags" property="tags"/>
+        <result column="sales" property="sales"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="positive_comment_count" property="positiveCommentCount"/>
+        <result column="sort" property="sort"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="is_published" property="isPublished"/>
+        <result column="is_new_arrival" property="isNewArrival"/>
+        <result column="is_recommend" property="isRecommend"/>
+        <result column="is_checked" property="isChecked"/>
+        <result column="check_user" property="checkUser"/>
+    </resultMap>
+
 </mapper>

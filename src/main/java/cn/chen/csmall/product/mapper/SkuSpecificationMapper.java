@@ -15,7 +15,7 @@ public interface SkuSpecificationMapper {
 
     int count();
 
-   SkuSpecificationStandardVO getStandardById(Long id);
+    SkuSpecificationStandardVO getStandardById(Long id);
 
     List<SkuSpecificationListItemVO> list();
 }
