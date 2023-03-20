@@ -1,6 +1,7 @@
 package cn.chen.csmall.product.mapper;
 
 import cn.chen.csmall.product.pojo.entity.Album;
+import cn.chen.csmall.product.pojo.vo.AlbumStandardVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,4 +67,28 @@ public class AlbumMapperTests {
         int rows = mapper.update(album);
         System.out.println("受影响行数: "+rows);
     }
+
+    @Test
+    void count(){
+        int count = mapper.count();
+        System.out.println("统计完成, 数据的数量为: " + count);
+    }
+
+    @Test
+    void getStandardById(){
+        Long id = 1L;
+
+        AlbumStandardVO standardById = mapper.getStandardById(id);
+        System.out.println("根据ID查询数据完成，结果：" + standardById);
+    }
+
+    @Test
+    void list(){
+        List<?> list = mapper.list();
+        System.out.println("查询列表完成，查询结果中数据的数量：" + list.size());
+        for (Object o : list) {
+            System.out.println(o);
+        }
+    }
+
 }
