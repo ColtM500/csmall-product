@@ -90,5 +90,4 @@ public class AlbumMapperTests {
             System.out.println(o);
         }
     }
-
 }
