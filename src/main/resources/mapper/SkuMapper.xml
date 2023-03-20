@@ -21,4 +21,80 @@
         DELETE FROM pms_sku WHERE id=#{id}
     </delete>
 
+    <!--    int count();-->
+    <select id="count" resultType="int">
+        SELECT  COUNT(*) FROM pms_sku
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM pms_sku
+        WHERE id=#{id}
+    </select>
+
+    <sql id="StandardQueryFields">
+        <if test="true">
+            id, spu_id, title, bar_code, attribute_template_id,
+            specifications, album_id, pictures, price,
+            stock, stock_threshold, sales, comment_count,
+            positive_comment_count, sort
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMap" type="cn.chen.csmall.product.pojo.vo.SkuStandardVO">
+        <id column="id" property="id"/>
+        <result column="spu_id" property="spuId"/>
+        <result column="title" property="title"/>
+        <result column="bar_code" property="bar_code"/>
+        <result column="attribute_template_id" property="attributeTemplateId"/>
+        <result column="specifications" property="specifications"/>
+        <result column="album_id" property="albumId"/>
+        <result column="pictures" property="pictures"/>
+        <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
+        <result column="stock_threshold" property="stockThreshold"/>
+        <result column="sales" property="sales"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="positive_comment_count" property="positiveCommentCount"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+    <!--    List<AlbumListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListResultMap"></include>
+        FROM
+        pms_sku
+        ORDER BY
+        sort DESC, id DESC
+    </select>
+
+    <sql id="ListResultMap">
+        <if test="true">
+            id, spu_id, title, bar_code, attribute_template_id,
+            specifications, album_id, pictures, price,
+            stock, stock_threshold, sales, comment_count,
+            positive_comment_count, sort
+        </if>
+    </sql>
+
+    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.SkuListItemVO">
+        <id column="id" property="id"/>
+        <result column="spu_id" property="spuId"/>
+        <result column="title" property="title"/>
+        <result column="bar_code" property="bar_code"/>
+        <result column="attribute_template_id" property="attributeTemplateId"/>
+        <result column="specifications" property="specifications"/>
+        <result column="album_id" property="albumId"/>
+        <result column="pictures" property="pictures"/>
+        <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
+        <result column="stock_threshold" property="stockThreshold"/>
+        <result column="sales" property="sales"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="positive_comment_count" property="positiveCommentCount"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
 </mapper>
