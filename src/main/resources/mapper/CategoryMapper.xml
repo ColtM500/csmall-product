@@ -18,4 +18,65 @@
         DELETE FROM pms_category WHERE id=#{id}
     </delete>
 
+    <!--    int count();-->
+    <select id="count" resultType="int">
+        SELECT  COUNT(*) FROM pms_category
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM pms_category
+        WHERE id=#{id}
+    </select>
+
+    <sql id="StandardQueryFields">
+        <if test="true">
+            id, name, parent_id, depth, keywords,
+            sort, icon, enable, is_parent, is_display
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMap" type="cn.chen.csmall.product.pojo.vo.CategoryStandardVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="depth" property="depth"/>
+        <result column="keywords" property="keywords"/>
+        <result column="icon" property="icon"/>
+        <result column="enable" property="enable"/>
+        <result column="is_parent" property="isParent"/>
+        <result column="is_display" property="isDisplay"/>
+    </resultMap>
+
+    <!--    List<AlbumListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListResultMap"></include>
+        FROM
+        pms_category
+        ORDER BY
+        sort DESC, id DESC
+    </select>
+
+    <sql id="ListResultMap">
+        <if test="true">
+            id, name, parent_id, depth, keywords,
+            sort, icon, enable, is_parent, is_display
+        </if>
+    </sql>
+
+    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.CategoryListItemVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="depth" property="depth"/>
+        <result column="keywords" property="keywords"/>
+        <result column="icon" property="icon"/>
+        <result column="enable" property="enable"/>
+        <result column="is_parent" property="isParent"/>
+        <result column="is_display" property="isDisplay"/>
+    </resultMap>
+
 </mapper>
