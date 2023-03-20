@@ -15,4 +15,50 @@
         DELETE FROM pms_brand_category WHERE id=#{id}
     </delete>
 
+    <!--    int count();-->
+    <select id="count" resultType="int">
+        SELECT  COUNT(*) FROM pms_brand_category
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM pms_brand_category
+        WHERE id=#{id}
+    </select>
+
+    <sql id="StandardQueryFields">
+        <if test="true">
+            id, brand_id, category_id
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMap" type="cn.chen.csmall.product.pojo.vo.BrandCategoryStandardVO">
+        <id column="id" property="id"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="category_id" property="categoryId"/>
+    </resultMap>
+
+    <!--    List<AlbumListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListResultMap"></include>
+        FROM
+        pms_brand_category
+        ORDER BY
+        id DESC
+    </select>
+
+    <sql id="ListResultMap">
+        <if test="true">
+            id, brand_id, category_id
+        </if>
+    </sql>
+
+    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.BrandCategoryListItemVO">
+        <id column="id" property="id"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="category_id" property="categoryId"/>
+    </resultMap>
 </mapper>
