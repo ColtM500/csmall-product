@@ -15,4 +15,50 @@
         DELETE FROM pms_category_attribute_template WHERE id=#{id}
     </delete>
 
+    <!--    int count();-->
+    <select id="count" resultType="int">
+        SELECT  COUNT(*) FROM pms_category_attribute_template
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
+    <select id="getStandardById" resultMap="StandardResultMap">
+        SELECT
+        <include refid="StandardQueryFields"/>
+        FROM pms_category_attribute_template
+        WHERE id=#{id}
+    </select>
+
+    <sql id="StandardQueryFields">
+        <if test="true">
+            id, category_id, attribute_template_id
+        </if>
+    </sql>
+
+    <resultMap id="StandardResultMap" type="cn.chen.csmall.product.pojo.vo.CategoryAttributeTemplateStandardVO">
+        <id column="id" property="id"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="attribute_template_id" property="attributeTemplateId"/>
+    </resultMap>
+
+    <!--    List<AlbumListItemVO> list();-->
+    <select id="list" resultMap="ListResultMap">
+        SELECT
+        <include refid="ListResultMap"></include>
+        FROM
+        pms_category_attribute_template
+        ORDER BY
+        id DESC
+    </select>
+
+    <sql id="ListResultMap">
+        <if test="true">
+            id, category_id, attribute_template_id
+        </if>
+    </sql>
+
+    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.CategoryAttributeTemplateListItemVO">
+        <id column="id" property="id"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="attribute_template_id" property="attributeTemplateId"/>
+    </resultMap>
 </mapper>
