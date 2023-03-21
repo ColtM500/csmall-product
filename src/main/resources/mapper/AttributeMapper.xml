@@ -80,4 +80,65 @@
         <result column="sort" property="sort"/>
         <result column="is_allow_customize" property="isAllowCustomize"/>
     </resultMap>
+
+    <!-- int insertBatch(List<Album> albumList); -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_attribute (
+        template_id , name, description, type, input_type, value_list,
+        unit, sort, is_allow_customize, gmt_create, gmt_modified
+        ) VALUES
+        <foreach collection="list" item="attribute" separator=",">
+            (
+             #{attribute.templateId}, #{attribute.name}, #{attribute.description}, #{attribute.type}, #{attribute.inputType},
+             #{attribute.valueList}, #{attribute.unit}, #{attribute.sort}, #{attribute.isAllowCustomize} , #{attribute.gmtCreate},
+             #{attribute.gmtModified}
+            )
+        </foreach>
+    </insert>
+
+    <!-- int deleteByIds(Long[] idList); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_attribute WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <!-- int update(Album album); -->
+    <update id="update" >
+        UPDATE
+        pms_attribute
+        <set>
+<!--            <if test="template_id != null">-->
+<!--                template_id=#{templateId},-->
+<!--            </if>-->
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="type != null">
+                type=#{type},
+            </if>
+<!--            <if test="input_type != null">-->
+<!--                input_type=#{inputType},-->
+<!--            </if>-->
+<!--            <if test="value_list != null">-->
+<!--                value_list=#{valueList},-->
+<!--            </if>-->
+            <if test="unit != null">
+                unit=#{unit},
+            </if>
+<!--            <if test="sort != null">-->
+<!--                sort=#{sort},-->
+<!--            </if>-->
+<!--            <if test="is_allow_customize != null">-->
+<!--                is_allow_customize=#{isAllowCustomize},-->
+<!--            </if>-->
+        </set>
+        WHERE
+        id=#{id}
+    </update>
 </mapper>

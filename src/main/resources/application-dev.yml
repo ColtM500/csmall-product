@@ -7,3 +7,6 @@ spring:
 logging:
   level:
     cn.chen.csmall: trace
+
+server:
+  port: 6080

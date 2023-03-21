@@ -29,7 +29,7 @@
         <!-- Spring Boot的基础依赖项 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!-- Spring Boot测试的依赖项-->
         <dependency>
