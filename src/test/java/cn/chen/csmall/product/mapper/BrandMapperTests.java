@@ -1,10 +1,13 @@
 package cn.chen.csmall.product.mapper;
 
 import cn.chen.csmall.product.pojo.entity.Brand;
+import cn.chen.csmall.product.pojo.entity.BrandCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -58,4 +61,37 @@ public class BrandMapperTests {
             System.out.println(item);
         }
     }
+
+    @Test
+    void insertBatch(){
+        List<Brand> brands = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            Brand brand = new Brand();
+            brand.setName("批量插入测试数据" + i);
+            brands.add(brand);
+        }
+
+        int rows = mapper.insertBatch(brands);
+        System.out.println("批量插入数据完成, 受影响的行数为: " + rows);
+    }
+
+    @Test
+    void deleteByIds(){
+        Long[] idList = {16L, 17L};
+
+        int rows = mapper.deleteByIds(idList);
+        System.out.println("受影响行数为: " + rows);
+    }
+
+    @Test
+    void update(){
+        Brand brand = new Brand();
+        brand.setId(16L);
+        brand.setName("ww");
+
+        int rows = mapper.update(brand);
+        System.out.println("更新完成，受影响的行数：" + rows);
+    }
+
+
 }
