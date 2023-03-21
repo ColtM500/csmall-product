@@ -1,5 +1,6 @@
 package cn.chen.csmall.product.service;
 
+import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.service.impl.AlbumServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class AlbumServiceTests {
 
     @Autowired
-    AlbumServiceImpl service;
+    IAlbumService service;
 
     @Test
     void addNew() {
@@ -22,8 +23,11 @@ public class AlbumServiceTests {
         try {
             service.addNew(albumAddNewDTO);
             System.out.println("添加相册成功！");
-        } catch (RuntimeException e) {
-            System.out.println("添加相册失败，相册名称已经被占用！");
+        } catch (ServiceException e){
+            System.out.println("添加相册失败, 相册名称已被占用!");
+        }
+        catch (RuntimeException e) {
+            System.out.println("出现了某种RuntimeException: " + e.getClass().getName());
         }
     }
 

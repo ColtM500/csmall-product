@@ -1,5 +1,6 @@
 package cn.chen.csmall.product.service.impl;
 
+import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.mapper.AlbumMapper;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.pojo.entity.Album;
@@ -22,7 +23,7 @@ public class AlbumServiceImpl implements IAlbumService {
         // 判断统计结果是否大于0
         if (countByName>0){
             // 是：抛出异常throw new RuntimeException()
-            throw new RuntimeException();
+            throw new ServiceException();
         }
 
         // 创建Album对象
