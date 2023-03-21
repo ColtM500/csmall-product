@@ -1,5 +1,6 @@
 package cn.chen.csmall.product.mapper;
 
+import cn.chen.csmall.product.pojo.entity.Brand;
 import cn.chen.csmall.product.pojo.entity.Category;
 import cn.chen.csmall.product.pojo.vo.BrandListItemVO;
 import cn.chen.csmall.product.pojo.vo.BrandStandardVO;
@@ -18,4 +19,10 @@ public interface CategoryMapper {
     CategoryStandardVO getStandardById(Long id);
 
     List<CategoryListItemVO> list();
+
+    int insertBatch(List<Category> categories);
+
+    int deleteByIds(Long[] idList);
+
+    int update(Category category);
 }

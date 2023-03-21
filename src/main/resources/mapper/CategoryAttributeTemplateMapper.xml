@@ -61,4 +61,40 @@
         <result column="category_id" property="categoryId"/>
         <result column="attribute_template_id" property="attributeTemplateId"/>
     </resultMap>
+
+    <!-- int insertBatch(List<Album> albumList); -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_category_attribute_template (
+        category_id, attribute_template_id
+        ) VALUES
+        <foreach collection="list" item="categoryAttributeTemplate" separator=",">
+            (
+            #{categoryAttributeTemplate.categoryId}, #{categoryAttributeTemplate.attributeTemplateId}
+            )
+        </foreach>
+    </insert>
+
+    <!-- int deleteByIds(Long[] idList); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_category_attribute_template WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <!--    int update(Brand brand);-->
+    <update id="update">
+        UPDATE
+        pms_category_attribute_template
+        <set>
+            <if test="categoryId != null">
+                category_id=#{categoryId},
+            </if>
+            <if test="attributeTemplateId != null">
+                attribute_template_id=#{attributeTemplateId},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>

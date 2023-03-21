@@ -1,10 +1,12 @@
 package cn.chen.csmall.product.mapper;
 
+import cn.chen.csmall.product.pojo.entity.Category;
 import cn.chen.csmall.product.pojo.entity.CategoryAttributeTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -48,5 +50,38 @@ public class CategoryAttributeTemplateTests {
         for (Object item : list) {
             System.out.println(item);
         }
+    }
+
+    @Test
+    void insertBatch() {
+        List<CategoryAttributeTemplate> categoryAttributeTemplateList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            CategoryAttributeTemplate categoryAttributeTemplate = new CategoryAttributeTemplate();
+            categoryAttributeTemplate.setCategoryId(i + 0L);
+            categoryAttributeTemplate.setAttributeTemplateId(i + 0L);
+            categoryAttributeTemplateList.add(categoryAttributeTemplate);
+        }
+
+        int rows = mapper.insertBatch(categoryAttributeTemplateList);
+        System.out.println("批量插入完成，受影响的行数：{}" + rows);
+    }
+
+    @Test
+    void deleteByIds(){
+        Long[] idList = {1L, 3L};
+
+        int rows = mapper.deleteByIds(idList);
+        System.out.println("受影响行数为: " + rows);
+    }
+
+    @Test
+    void update(){
+        CategoryAttributeTemplate categoryAttributeTemplate = new CategoryAttributeTemplate();
+        categoryAttributeTemplate.setId(1L);
+        categoryAttributeTemplate.setCategoryId(8L);
+        categoryAttributeTemplate.setAttributeTemplateId(8L);
+
+        int rows = mapper.update(categoryAttributeTemplate);
+        System.out.println("更新完成，受影响的行数：" + rows);
     }
 }
