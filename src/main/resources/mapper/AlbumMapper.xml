@@ -3,67 +3,81 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.chen.csmall.product.mapper.AlbumMapper">
+
+    <!-- int insert(Album album); -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO pms_album (
-           name, description, sort
+            name, description, sort
         ) VALUES (
                      #{name}, #{description}, #{sort}
                  )
     </insert>
 
+    <!-- int insertBatch(List<Album> albumList); -->
     <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO pms_album (
-           name, description, sort, gmt_create, gmt_modified
-           ) VALUES
-           <foreach collection="list" item="album" separator=",">
-               (
-                  #{album.name},#{album.description},#{album.sort},
-                  #{album.gmtCreate},#{album.gmtModified}
-               )
-           </foreach>
+        name, description, sort,
+        gmt_create, gmt_modified
+        ) VALUES
+        <foreach collection="list" item="album" separator=",">
+            (
+            #{album.name}, #{album.description}, #{album.sort},
+            #{album.gmtCreate}, #{album.gmtModified}
+            )
+        </foreach>
     </insert>
 
+    <!-- int deleteById(Long id); -->
     <delete id="deleteById">
         DELETE FROM pms_album WHERE id=#{id}
     </delete>
 
+    <!-- int deleteByIds(Long[] idList); -->
     <delete id="deleteByIds">
         DELETE FROM pms_album WHERE id IN (
-            <foreach collection="array" item="id" separator=",">
-                #{id}
-            </foreach>
-            )
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
     </delete>
 
+    <!-- int update(Album album); -->
     <update id="update">
         UPDATE
-            pms_album
+        pms_album
         <set>
             <if test="name != null">
-                name = #{name},
+                name=#{name},
             </if>
             <if test="description != null">
-                description = #{description},
+                description=#{description},
             </if>
             <if test="sort != null">
-                sort = #{sort},
+                sort=#{sort},
             </if>
         </set>
         WHERE
-             id = #{id}
+        id=#{id}
     </update>
 
+    <!-- int count(); -->
     <select id="count" resultType="int">
-        SELECT count(*) FROM pms_album;
+        SELECT count(*) FROM pms_album
     </select>
 
+    <!-- int countByName(String name); -->
+    <select id="countByName" resultType="int">
+        SELECT count(*) FROM pms_album WHERE name=#{name}
+    </select>
+
+    <!-- AlbumStandardVO getStandardById(Long id); -->
     <select id="getStandardById" resultMap="StandardResultMap">
         SELECT
-          <include refid="StandardQueryFields"/>
+        <include refid="StandardQueryFields"/>
         FROM
-            pms_album
+        pms_album
         WHERE
-            id = #{id}
+        id=#{id}
     </select>
 
     <sql id="StandardQueryFields">
@@ -80,23 +94,24 @@
         <result column="sort" property="sort"/>
     </resultMap>
 
-<!--    List<AlbumListItemVO> list();-->
+    <!-- List<AlbumListItemVO> list(); -->
     <select id="list" resultMap="ListResultMap">
         SELECT
-            <include refid="ListQueryFields"/>
+        <include refid="ListQueryFields"/>
         FROM
-            pms_album
+        pms_album
         ORDER BY
-            sort DESC, id DESC
+        sort DESC, id DESC
     </select>
 
     <sql id="ListQueryFields">
         <if test="true">
-        id, name, description, sort
+            id, name, description, sort
         </if>
     </sql>
-    
-    <resultMap id="ListResultMap" type="cn.chen.csmall.product.pojo.vo.AlbumListItemVO">
+
+    <resultMap id="ListResultMap"
+               type="cn.chen.csmall.product.pojo.vo.AlbumListItemVO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="description" property="description"/>

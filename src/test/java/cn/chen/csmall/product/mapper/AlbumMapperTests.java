@@ -75,6 +75,13 @@ public class AlbumMapperTests {
     }
 
     @Test
+    void countByName(){
+        String name = "华为Mate10的相册";
+        int count = mapper.countByName(name);
+        System.out.println("根据名称[" + name + "]统计完成,数据的数量为: " + count);
+    }
+
+    @Test
     void getStandardById(){
         Long id = 1L;
 
