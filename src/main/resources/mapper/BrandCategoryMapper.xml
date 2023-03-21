@@ -61,4 +61,40 @@
         <result column="brand_id" property="brandId"/>
         <result column="category_id" property="categoryId"/>
     </resultMap>
+
+    <!-- int insertBatch(List<Album> albumList); -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_brand_category (
+        brand_id, category_id, gmt_create, gmt_modified
+        ) VALUES
+        <foreach collection="list" item="brandCategory" separator=",">
+            (
+            #{brandCategory.brandId}, #{brandCategory.categoryId},
+            #{brandCategory.gmtCreate}, #{brandCategory.gmtModified}
+            )
+        </foreach>
+    </insert>
+
+    <!-- int deleteByIds(Long[] idList); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_brand_category WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <update id="update">
+        UPDATE
+        pms_brand_category
+        <set>
+                <if test="brandId != null">
+                    brand_id=#{brandId},
+                </if>
+                <if test="categoryId != null">
+                    category_id=#{categoryId},
+                </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>
