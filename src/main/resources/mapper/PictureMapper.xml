@@ -74,4 +74,57 @@
         <result column="is_cover" property="isCover"/>
         <result column="sort" property="sort"/>
     </resultMap>
+
+    <!-- int insertBatch(List<Album> albumList); -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_picture (
+        album_id, url, is_cover, description, width,
+        height, sort
+        ) VALUES
+        <foreach collection="list" item="picture" separator=",">
+            (
+            #{picture.albumId}, #{picture.url}, #{picture.isCover}, #{picture.description}, #{picture.width},
+            #{picture.height}, #{picture.sort}
+            )
+        </foreach>
+    </insert>
+
+    <!-- int deleteByIds(Long[] idList); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_picture WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <!--    int update(Brand brand);-->
+    <update id="update">
+        UPDATE
+        pms_picture
+        <set>
+            <if test="albumId != null">
+                album_id=#{albumId},
+            </if>
+            <if test="url != null">
+                url=#{url},
+            </if>
+            <if test="isCover != null">
+                is_cover=#{isCover},
+            </if>
+            <if test="description != null">
+                description=#{description},
+            </if>
+            <if test="width != null">
+                width=#{width},
+            </if>
+            <if test="height != null">
+                height=#{height},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>
