@@ -1,10 +1,12 @@
 package cn.chen.csmall.product.mapper;
 
+import cn.chen.csmall.product.pojo.entity.Picture;
 import cn.chen.csmall.product.pojo.entity.Sku;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -61,5 +63,36 @@ public class SkuMapperTests {
         for (Object item : list) {
             System.out.println(item);
         }
+    }
+
+    @Test
+    void insertBatch(){
+        List<Sku> skuList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            Sku sku = new Sku();
+            sku.setId(i + 0L);
+            sku.setTitle("批量插入测试数据" + i);
+            skuList.add(sku);
+        }
+
+        int rows = mapper.insertBatch(skuList);
+        System.out.println("批量插入数据完成, 受影响的行数为: " + rows);
+    }
+
+    @Test
+    void deleteByIds(){
+        Long id = 1L;
+        int rows = mapper.deleteById(id);
+        System.out.println("受影响行数为: " + rows);
+    }
+
+    @Test
+    void update(){
+        Sku sku = new Sku();
+        sku.setId(1L);
+        sku.setTitle("新-测试数据001");
+
+        int rows = mapper.update(sku);
+        System.out.println("更新完成，受影响的行数：" + rows);
     }
 }

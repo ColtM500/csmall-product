@@ -74,4 +74,54 @@
         <result column="sort" property="sort"/>
     </resultMap>
 
+    <!-- int insertBatch(List<Album> albumList); -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_sku_specification (
+        sku_id, attribute_id, attribute_name,
+        attribute_value, unit, sort
+        ) VALUES
+        <foreach collection="list" item="skuSpecification" separator=",">
+            (
+            #{skuSpecification.skuId}, #{skuSpecification.attributeId}, #{skuSpecification.attributeName},
+            #{skuSpecification.attributeValue}, #{skuSpecification.unit}, #{skuSpecification.sort}
+            )
+        </foreach>
+    </insert>
+
+    <!-- int deleteByIds(Long[] idList); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_sku_specification WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <!--    int update(Brand brand);-->
+    <update id="update">
+        UPDATE
+        pms_sku_specification
+        <set>
+            <if test="skuId != null">
+                sku_id=#{skuId},
+            </if>
+            <if test="attributeId != null">
+                attribute_id=#{attributeId},
+            </if>
+            <if test="attributeName != null">
+                attribute_name=#{attributeName},
+            </if>
+            <if test="attributeValue != null">
+                attribute_value=#{attributeValue},
+            </if>
+            <if test="unit != null">
+                unit=#{unit},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
 </mapper>

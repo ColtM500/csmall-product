@@ -1,10 +1,12 @@
 package cn.chen.csmall.product.mapper;
 
 import cn.chen.csmall.product.pojo.entity.Spu;
+import cn.chen.csmall.product.pojo.entity.SpuDetail;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -80,5 +82,36 @@ public class SpuMapperTests {
         for (Object item : list) {
             System.out.println(item);
         }
+    }
+
+    @Test
+    void insertBatch(){
+        List<Spu> spuList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            Spu spu = new Spu();
+            spu.setId(i + 0L);
+            spu.setTitle("批量插入测试数据" + i);
+            spuList.add(spu);
+        }
+
+        int rows = mapper.insertBatch(spuList);
+        System.out.println("批量插入数据完成, 受影响的行数为: " + rows);
+    }
+
+    @Test
+    void deleteByIds(){
+        Long[] ids = {1L, 3L, 5L};
+        int rows = mapper.deleteByIds(ids);
+        System.out.println("受影响行数为: " + rows);
+    }
+
+    @Test
+    void update(){
+        Spu spu = new Spu();
+        spu.setId(1L);
+        spu.setTitle("新-测试数据001");
+
+        int rows = mapper.update(spu);
+        System.out.println("更新完成，受影响的行数：" + rows);
     }
 }

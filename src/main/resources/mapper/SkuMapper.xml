@@ -97,4 +97,71 @@
         <result column="positive_comment_count" property="positiveCommentCount"/>
         <result column="sort" property="sort"/>
     </resultMap>
+
+    <!-- int insertBatch(List<Album> albumList); -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_sku (
+        id, spu_id, title, bar_code, attribute_template_id,
+        specifications, album_id, pictures, price, stock,
+        stock_threshold, sort
+        ) VALUES
+        <foreach collection="list" item="sku" separator=",">
+            (
+            #{sku.id}, #{sku.spuId}, #{sku.title}, #{sku.barCode}, #{sku.attributeTemplateId},
+            #{sku.specifications}, #{sku.albumId}, #{sku.pictures}, #{sku.price}, #{sku.stock},
+            #{sku.stockThreshold}, #{sku.sort}
+            )
+        </foreach>
+    </insert>
+
+    <!-- int deleteByIds(Long[] idList); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_sku WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <!--    int update(Brand brand);-->
+    <update id="update">
+        UPDATE
+        pms_sku
+        <set>
+            <if test="spuId != null">
+                spu_id=#{spuId},
+            </if>
+            <if test="title != null">
+                title=#{title},
+            </if>
+            <if test="barCode != null">
+                bar_code=#{barCode},
+            </if>
+            <if test="attributeTemplateId != null">
+                attribute_template_id=#{attributeTemplateId},
+            </if>
+            <if test="specifications != null">
+                specifications=#{specifications},
+            </if>
+            <if test="albumId != null">
+                album_id=#{albumId},
+            </if>
+            <if test="pictures != null">
+                pictures=#{pictures},
+            </if>
+            <if test="price != null">
+                price=#{price},
+            </if>
+            <if test="stock != null">
+                stock=#{stock},
+            </if>
+            <if test="stockThreshold != null">
+                stock_threshold=#{stockThreshold},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>
