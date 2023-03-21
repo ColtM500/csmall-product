@@ -71,4 +71,51 @@
         <result column="sort" property="sort"/>
     </resultMap>
 
+    <!-- int insertBatch(List<Album> albumList); -->
+    <insert id="insertBatch" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pms_attribute_template (
+        name, pinyin, keywords, sort, gmt_create, gmt_modified
+        ) VALUES
+        <foreach collection="list" item="attributeTemplate" separator=",">
+            (
+            #{attributeTemplate.name}, #{attributeTemplate.pinyin}, #{attributeTemplate.keywords}, #{attributeTemplate.sort},
+            #{attributeTemplate.gmtCreate}, #{attributeTemplate.gmtModified}
+            )
+        </foreach>
+    </insert>
+
+    <!-- int deleteByIds(Long[] idList); -->
+    <delete id="deleteByIds">
+        DELETE FROM pms_attribute_template WHERE id IN (
+        <foreach collection="array" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <update id="update">
+        UPDATE
+        pms_attribute_template
+        <set>
+            <if test="name != null">
+                name=#{name},
+            </if>
+            <if test="pinyin != null">
+                pinyin=#{pinyin},
+            </if>
+            <if test="keywords != null">
+                keywords=#{keywords},
+            </if>
+            <if test="sort != null">
+                sort=#{sort},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create=#{gmtCreate}
+            </if>
+            <if test="gmtModified">
+                gmt_modified=#{gmtModified}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
 </mapper>

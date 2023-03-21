@@ -95,18 +95,10 @@ public class AttributeMapperTests {
     @Test
     void update(){
         Attribute attribute = new Attribute();
-        attribute.setId(6L);
-//        attribute.setTemplateId(1L);
-        attribute.setName("新-测试数据005");
-        attribute.setDescription("ww");
-//        attribute.setType(1);
-//        attribute.setInputType(1);
-//        attribute.setValueList("w");
-        attribute.setUnit("w");
-//        attribute.setSort(1);
-//        attribute.setIsAllowCustomize(1);
+        attribute.setId(10L);
+        attribute.setName("新-测试数据001");
 
         int rows = mapper.update(attribute);
-        System.out.println("受影响行数: "+rows);
+        System.out.println("更新完成，受影响的行数：" + rows);
     }
 }

@@ -1,10 +1,13 @@
 package cn.chen.csmall.product.mapper;
 
+import cn.chen.csmall.product.pojo.entity.Attribute;
 import cn.chen.csmall.product.pojo.entity.AttributeTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -59,5 +62,36 @@ public class AttributeTemplateMapperTests {
         for (Object item : list) {
             System.out.println(item);
         }
+    }
+
+    @Test
+    void insertBatch(){
+        LocalDateTime now = LocalDateTime.now();
+        List<AttributeTemplate> attributeTemplateList = new ArrayList<>();
+        for (int i=1; i<=5 ;i++){
+            AttributeTemplate attributeTemplate = new AttributeTemplate();
+            attributeTemplate.setName("批量插入测试数据" + i);
+            attributeTemplateList.add(attributeTemplate);
+        }
+        int rows =  mapper.insertBatch(attributeTemplateList);
+        System.out.println("批量插入数据完成, 受影响的行数为: " + rows);
+    }
+
+    @Test
+    void deleteByIds(){
+        Long[] idList = {14L, 15L, 16L, 17L, 18L};
+
+        int rows = mapper.deleteByIds(idList);
+        System.out.println("受影响行数为: " + rows);
+    }
+
+    @Test
+    void update(){
+        AttributeTemplate attributeTemplate = new AttributeTemplate();
+        attributeTemplate.setId(1L);
+        attributeTemplate.setName("新-测试数据001");
+
+        int rows = mapper.update(attributeTemplate);
+        System.out.println("批量插入数据完成, 受影响的行数为: " + rows);
     }
 }
