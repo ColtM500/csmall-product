@@ -6,9 +6,11 @@ import cn.chen.csmall.product.pojo.vo.SkuListItemVO;
 import cn.chen.csmall.product.pojo.vo.SkuSpecificationListItemVO;
 import cn.chen.csmall.product.pojo.vo.SkuSpecificationStandardVO;
 import cn.chen.csmall.product.pojo.vo.SkuStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface SkuSpecificationMapper {
     int insert(SkuSpecification skuSpecification);
 

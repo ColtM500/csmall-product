@@ -6,9 +6,11 @@ import cn.chen.csmall.product.pojo.vo.BrandListItemVO;
 import cn.chen.csmall.product.pojo.vo.BrandStandardVO;
 import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
 import cn.chen.csmall.product.pojo.vo.CategoryStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CategoryMapper {
     int insert(Category category);
 

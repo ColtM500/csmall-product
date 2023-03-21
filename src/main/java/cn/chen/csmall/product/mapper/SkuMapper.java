@@ -6,9 +6,11 @@ import cn.chen.csmall.product.pojo.vo.PictureListItemVO;
 import cn.chen.csmall.product.pojo.vo.PictureStandardVO;
 import cn.chen.csmall.product.pojo.vo.SkuListItemVO;
 import cn.chen.csmall.product.pojo.vo.SkuStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface SkuMapper {
     int insert(Sku sku);
 

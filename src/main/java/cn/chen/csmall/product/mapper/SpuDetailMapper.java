@@ -6,9 +6,11 @@ import cn.chen.csmall.product.pojo.vo.SpuDetailListItemVO;
 import cn.chen.csmall.product.pojo.vo.SpuDetailStandardVO;
 import cn.chen.csmall.product.pojo.vo.SpuListItemVO;
 import cn.chen.csmall.product.pojo.vo.SpuStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface SpuDetailMapper {
     int insert(SpuDetail spuDetail);
 

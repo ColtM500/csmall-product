@@ -4,9 +4,11 @@ import cn.chen.csmall.product.pojo.entity.Attribute;
 import cn.chen.csmall.product.pojo.entity.BrandCategory;
 import cn.chen.csmall.product.pojo.vo.BrandListItemVO;
 import cn.chen.csmall.product.pojo.vo.BrandStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface BrandCategoryMapper {
     int insert(BrandCategory brandCategory);
 

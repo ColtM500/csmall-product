@@ -6,9 +6,11 @@ import cn.chen.csmall.product.pojo.vo.AttributeListItemVO;
 import cn.chen.csmall.product.pojo.vo.AttributeTemplateStandardVO;
 import cn.chen.csmall.product.pojo.vo.BrandListItemVO;
 import cn.chen.csmall.product.pojo.vo.BrandStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface BrandMapper {
     int insert(Brand brand);
 

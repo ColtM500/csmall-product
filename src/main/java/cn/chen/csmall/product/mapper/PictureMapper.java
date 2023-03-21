@@ -6,9 +6,11 @@ import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
 import cn.chen.csmall.product.pojo.vo.CategoryStandardVO;
 import cn.chen.csmall.product.pojo.vo.PictureListItemVO;
 import cn.chen.csmall.product.pojo.vo.PictureStandardVO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface PictureMapper {
     int insert(Picture picture);
 
