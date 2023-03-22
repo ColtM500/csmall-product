@@ -41,6 +41,14 @@ public class AttributeTemplateMapperTests {
     }
 
     @Test
+    void countByNameAndNotId(){
+        Long id = 1L;
+        String name = "ww";
+        int count = mapper.countByNameAndNotId(id, name);
+        System.out.println("统计不是【{" + id + " }】但名称是【{ " + name + " }】的数据的数量，结果：{" +  count + "}");
+    }
+
+    @Test
     void countByName(){
         String name = "华为Mate10的属性模板";
         int count = mapper.countByName(name);

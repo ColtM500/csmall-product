@@ -7,6 +7,7 @@ import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.pojo.vo.AttributeListItemVO;
 import cn.chen.csmall.product.pojo.vo.AttributeStandardVO;
 import cn.chen.csmall.product.pojo.vo.AttributeTemplateStandardVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface AttributeTemplateMapper {
     int count();
 
     int countByName(String name);
+
+    int countByNameAndNotId(@Param("id") Long id, @Param("name") String name);
 
     AttributeTemplateStandardVO getStandardById(Long id);
 

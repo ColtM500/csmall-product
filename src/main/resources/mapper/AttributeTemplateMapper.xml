@@ -25,6 +25,11 @@
         SELECT COUNT(*) FROM pms_attribute_template WHERE name=#{name}
     </select>
 
+<!--    countByNameAndNotId-->
+    <select id="countByNameAndNotId" resultType="int">
+        SELECT COUNT(*) FROM pms_attribute_template WHERE name=#{name}  AND id!=#{id}
+    </select>
+
     <!--    AttributeStandardVO getStandardById(Long id);-->
     <select id="getStandardById" resultMap="StandardResultMap">
         SELECT
