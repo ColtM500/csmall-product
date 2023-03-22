@@ -18,6 +18,8 @@ public interface PictureMapper {
 
     int count();
 
+    int countByAlbumId(Long albumId);
+
     PictureStandardVO getStandardById(Long id);
 
     List<PictureListItemVO> list();

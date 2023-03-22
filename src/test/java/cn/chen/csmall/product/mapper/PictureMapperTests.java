@@ -42,6 +42,13 @@ public class PictureMapperTests {
     }
 
     @Test
+    void countByAlbumId(){
+        Long albumId = 21L;
+        int count = mapper.countByAlbumId(albumId);
+        System.out.println("统计完成，根据相册【{"+albumId+"}】统计图片的数量，结果：{"+count+"}");
+    }
+
+    @Test
     void getStandardById() {
         Long id = 10L;
 
