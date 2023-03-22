@@ -1,6 +1,7 @@
 package cn.chen.csmall.product.controller;
 
 import cn.chen.csmall.product.ex.ServiceException;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,13 +18,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler
-    public String handleNullPointerException(NullPointerException e) {
-        return "程序运行过程中出现了NullPointerException";
-    }
-
-    @ExceptionHandler
-    public String handleRuntimeException(RuntimeException e) {
-        return "程序运行过程中出现了RuntimeException";
+    public String handleBindException(BindException e) {
+        String message = e.getFieldError().getDefaultMessage();
+        return message;
     }
 
     @ExceptionHandler
