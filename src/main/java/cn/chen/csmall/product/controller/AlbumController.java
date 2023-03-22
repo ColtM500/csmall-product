@@ -38,5 +38,18 @@ public class AlbumController {
         return "程序运行过程中出现了ServiceException";
     }
 
+    @ExceptionHandler
+    public String handleNullPointerException(NullPointerException e){
+        return "程序运行过程中出现了NullPointerException";
+    }
 
+    @ExceptionHandler
+    public String handleRuntimeException(RuntimeException e) {
+        return "程序运行过程中出现了RuntimeException";
+    }
+
+    @ExceptionHandler
+    public String handleThrowable(Throwable e) {
+        return "程序运行过程中出现了Throwable";
+    }
 }
