@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler
     public String handleServiceException(ServiceException e) {
         return e.getMessage();
@@ -29,6 +30,5 @@ public class GlobalExceptionHandler {
     public String handleThrowable(Throwable e) {
         return "程序运行过程中出现了Throwable";
     }
-
 
 }
