@@ -37,6 +37,28 @@ public class BrandCategoryMapperTests {
     }
 
     @Test
+    void countByBrand(){
+        Long BrandId = 1L;
+        int count = mapper.countByBrand(BrandId);
+        System.out.println(BrandId+","+count);
+    }
+
+    @Test
+    void countByCategory(){
+        Long CategoryId = 1L;
+        int count = mapper.countByCategory(CategoryId);
+        System.out.println(CategoryId+","+count);
+    }
+
+    @Test
+    void countByBrandAndCategory(){
+        Long BrandId = 1L;
+        Long CategoryId = 1L;
+        int count = mapper.countByBrandAndCategory(BrandId, CategoryId);
+        System.out.println(BrandId+","+CategoryId+","+count);
+    }
+
+    @Test
     void getStandardById() {
         Long id = 10L;
 
