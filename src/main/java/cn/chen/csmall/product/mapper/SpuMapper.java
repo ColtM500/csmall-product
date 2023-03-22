@@ -18,6 +18,14 @@ public interface SpuMapper {
 
     int count();
 
+    int countByAlbumId(Long albumId);
+
+    int countByBrand(Long brandId);
+
+    int countByCategory(Long categoryId);
+
+    int countByAttributeTemplate(Long attributeTemplateId);
+
     SpuStandardVO getStandardById(Long id);
 
     List<SpuListItemVO> list();
