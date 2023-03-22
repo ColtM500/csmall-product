@@ -24,32 +24,12 @@ public class AlbumController {
     @RequestMapping("delete")
     public void delete(Long id) {
         // 由adminService调用删除方法，Service中的方法仍可能抛出异常
-        throw new ServiceException();
+        throw new ServiceException("测试删除相册时, 假设抛出异常");
     }
 
     @RequestMapping("update")
     public void update() {
         // 由adminService调用修改方法，Service中的方法仍可能抛出异常
-        throw new ServiceException();
-    }
-
-    @ExceptionHandler
-    public String handleServiceException(ServiceException e) {
-        return "程序运行过程中出现了ServiceException";
-    }
-
-    @ExceptionHandler
-    public String handleNullPointerException(NullPointerException e){
-        return "程序运行过程中出现了NullPointerException";
-    }
-
-    @ExceptionHandler
-    public String handleRuntimeException(RuntimeException e) {
-        return "程序运行过程中出现了RuntimeException";
-    }
-
-    @ExceptionHandler
-    public String handleThrowable(Throwable e) {
-        return "程序运行过程中出现了Throwable";
+        throw new ServiceException("测试修改想测试, 假设抛出异常");
     }
 }

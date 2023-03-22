@@ -23,7 +23,8 @@ public class AttributeTemplateServiceImpl implements IAttributeTemplateService {
         // 判断统计结果是否大于0
         if (countByName>0){
             // 是：抛出异常throw new RuntimeException()
-            throw new ServiceException();
+            String message = "添加属性模板失败, 属性模板名称已被占用!";
+            throw new ServiceException(message);
         }
 
         // 创建AttributeTemplate对象
