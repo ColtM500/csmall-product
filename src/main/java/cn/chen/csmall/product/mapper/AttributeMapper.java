@@ -5,6 +5,7 @@ import cn.chen.csmall.product.pojo.entity.Attribute;
 import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.pojo.vo.AttributeStandardVO;
 import com.sun.xml.internal.bind.v2.TODO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,6 +17,10 @@ public interface AttributeMapper {
     int deleteById(Long id);
 
     int count();
+
+    int countByNameAndTemplate(@Param("name") String name, @Param("templateId") Long templateId);
+
+    int countByNameAndTemplateAndNotId(@Param("id") Long id, @Param("name") String name, @Param("templateId") Long templateId);
 
     AttributeStandardVO getStandardById(Long id);
 

@@ -20,10 +20,23 @@
 
 <!--    int count();-->
     <select id="count" resultType="int">
-        SELECT  COUNT(*) FROM pms_album
+        SELECT  COUNT(*) FROM pms_attribute
     </select>
 
-<!--    AttributeStandardVO getStandardById(Long id);-->
+<!--    int countByNameAndTemplate(@Param("name") String name, @Param("templateId") Long templateId);-->
+    <select id="countByNameAndTemplate" resultType="int">
+        SELECT  COUNT(*) FROM pms_attribute WHERE name=#{name} AND template_id=#{templateId}
+    </select>
+
+<!--    int countByNameAndTemplateAndNotId(
+                    @Param("id") Long id,
+                     @Param("name") String name,
+                      @Param("templateId") Long templateId);-->
+    <select id="countByNameAndTemplateAndNotId" resultType="int">
+        SELECT  COUNT(*) FROM pms_attribute WHERE name=#{name} AND template_id=#{templateId} AND id!=#{id}
+    </select>
+
+    <!--    AttributeStandardVO getStandardById(Long id);-->
     <select id="getStandardById" resultMap="StandardResultMap">
         SELECT
             <include refid="StandardQueryFields"/>

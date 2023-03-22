@@ -101,4 +101,22 @@ public class AttributeMapperTests {
         int rows = mapper.update(attribute);
         System.out.println("更新完成，受影响的行数：" + rows);
     }
+
+    @Test
+    void countByNameAndTemplate(){
+        String name = "sb";
+        Long templateId = 1L;
+        int count = mapper.countByNameAndTemplate(name, templateId);
+        System.out.println("根据名称【{" + name+ "}】在属性模板【{ " + templateId + "}】中统计属性数量完成，统计结果：{" + count + "}");
+    }
+
+    @Test
+    void countByNameAndTemplateAndNotId(){
+        Long id = 1L;
+        String name = "小米15的颜色属性";
+        Long templateId = 1L;
+        int count = mapper.countByNameAndTemplateAndNotId(id, name, templateId);
+        System.out.println("根据名称【{"+name+"}】且属性模板ID【{"+templateId+"}】且非ID【{"+id+"}】统计数量完成，统计结果：{"+count+"}");
+
+    }
 }
