@@ -26,6 +26,9 @@ public class AlbumServiceImpl implements IAlbumService {
             throw new ServiceException();
         }
 
+        // "".substring(1000); // StringIndexOutOfBoundsException
+        // new Album().getName().toString(); // NullPointerException
+
         // 创建Album对象
         Album album = new Album();
         // 调用BeanUtils.copyProperties()将参数对象的属性值复制到Album对象中
