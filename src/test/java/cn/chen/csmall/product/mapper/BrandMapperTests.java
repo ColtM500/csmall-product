@@ -46,6 +46,21 @@ public class BrandMapperTests {
     }
 
     @Test
+    void countByName(){
+        String name = "ww";
+        int count = mapper.countByName(name);
+        System.out.println(name + "," + count);
+    }
+
+    @Test
+    void countByNameAndNotId(){
+        String name = "w";
+        Long brandId = 1L;
+        int count = mapper.countByNameAndNotId(brandId, name);
+        System.out.println(name + "," + brandId + "," + count);
+    }
+
+    @Test
     void getStandardById() {
         Long id = 10L;
 
