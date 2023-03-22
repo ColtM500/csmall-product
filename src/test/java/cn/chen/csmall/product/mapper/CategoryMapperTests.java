@@ -43,6 +43,21 @@ public class CategoryMapperTests {
     }
 
     @Test
+    void countByName(){
+        String name = "某个新类别";
+        int count = mapper.countByName(name);
+        System.out.println("根据名称【{"+name+"}】统计数量完成，统计结果：{"+ count+"}");
+    }
+
+    @Test
+    void countByNameAndNotId(){
+        Long id = 1L;
+        String name = "新-类别";
+        int count = mapper.countByNameAndNotId(id, name);
+        System.out.println("根据名称【{"+name+"}】且非ID【{"+id+"}】统计数量完成，统计结果：{"+count+"}");
+    }
+
+    @Test
     void getStandardById() {
         Long id = 10L;
 

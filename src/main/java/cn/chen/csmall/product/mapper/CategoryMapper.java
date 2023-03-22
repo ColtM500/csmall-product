@@ -6,6 +6,7 @@ import cn.chen.csmall.product.pojo.vo.BrandListItemVO;
 import cn.chen.csmall.product.pojo.vo.BrandStandardVO;
 import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
 import cn.chen.csmall.product.pojo.vo.CategoryStandardVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,10 @@ public interface CategoryMapper {
     int deleteById(long id);
 
     int count();
+
+    int countByName(String name);
+
+    int countByNameAndNotId(@Param("id") Long id, @Param("name") String name);
 
     CategoryStandardVO getStandardById(Long id);
 
