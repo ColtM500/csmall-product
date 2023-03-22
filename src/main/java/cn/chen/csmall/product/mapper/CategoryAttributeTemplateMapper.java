@@ -16,6 +16,10 @@ public interface CategoryAttributeTemplateMapper {
 
     int count();
 
+    int countByCategory(Long categoryId);
+
+    int countByAttributeTemplate(Long templateId);
+
     CategoryStandardVO getStandardById(Long id);
 
     List<CategoryListItemVO> list();
