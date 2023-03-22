@@ -82,6 +82,14 @@ public class AlbumMapperTests {
     }
 
     @Test
+    void countByNameAndNotId(){
+        Long id = 1L;
+        String name = "华为Mate10的相册";
+        int count = mapper.countByNameAndNotId(id, name);
+        System.out.println("统计不是【{" + id + " }】但名称是【{ " + name + " }】的数据的数量，结果：{" +  count + "}");
+    }
+
+    @Test
     void getStandardById(){
         Long id = 1L;
 
