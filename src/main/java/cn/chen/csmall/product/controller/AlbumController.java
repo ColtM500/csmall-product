@@ -48,11 +48,5 @@ public class AlbumController {
         return JsonResult.ok();
     }
 
-//    @PostMapping("/update")
-//    @ApiOperation("修改相册")
-//    @ApiOperationSupport(order = 300)
-//    public void update(@ApiIgnore HttpSession session) {
-//        // 由adminService调用修改方法，Service中的方法仍可能抛出异常
-//        throw new ServiceException("测试修改相册时，假设抛出的异常");
-//    }
+
 }
