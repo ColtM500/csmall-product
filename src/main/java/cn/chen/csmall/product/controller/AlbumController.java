@@ -43,7 +43,7 @@ public class AlbumController {
         @ApiImplicitParam(name = "id", value = "相册ID", required = true,  dataType = "long"),
         @ApiImplicitParam(name = "username", value = "用户名", required = true)
     })
-    public void delete(@RequestParam @Range(min = 10, max = 99) Long id) {
+    public void delete(@RequestParam @Range(min = 10, max = 99, message = "删除相册失败，ID值无效！") Long id) {
         // 由adminService调用删除方法，Service中的方法仍可能抛出异常
         throw new ServiceException("测试删除相册时，假设抛出的异常");
     }

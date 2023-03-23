@@ -7,7 +7,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Set;
 import java.util.StringJoiner;
 
 /**
@@ -54,6 +57,16 @@ public class GlobalExceptionHandler {
         log.warn("异常信息：{}", e.getMessage());
         log.warn("异常跟踪信息如下：", e); // 输出异常信息时，第1个参数中不要使用占位符
         // e.printStackTrace();
+        return message;
+    }
+
+    @ExceptionHandler
+    public String handleConstraintViolationException(ConstraintViolationException e){
+        String message = null;
+        Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
+        for (ConstraintViolation<?> constraintViolation : constraintViolations){
+            message = constraintViolation.getMessage();
+        }
         return message;
     }
 
