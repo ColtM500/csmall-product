@@ -1,6 +1,7 @@
 package cn.chen.csmall.product.controller;
 
 import cn.chen.csmall.product.ex.ServiceException;
+import cn.chen.csmall.product.web.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -22,8 +23,11 @@ import java.util.StringJoiner;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    public String handleServiceException(ServiceException e) {
-        return e.getMessage();
+    public JsonResult handleServiceException(ServiceException e){
+        JsonResult jsonResult = new JsonResult();
+        jsonResult.setState(2);
+        jsonResult.setMessage(e.getMessage());
+        return  jsonResult;
     }
 
     @ExceptionHandler
