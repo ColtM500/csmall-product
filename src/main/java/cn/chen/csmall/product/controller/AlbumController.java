@@ -8,8 +8,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/album")
 @Api(tags = "01. 相册管理模块")
+@Validated
 public class AlbumController {
 
     @Autowired
@@ -40,7 +43,7 @@ public class AlbumController {
         @ApiImplicitParam(name = "id", value = "相册ID", required = true,  dataType = "long"),
         @ApiImplicitParam(name = "username", value = "用户名", required = true)
     })
-    public void delete(@RequestParam Long id, @RequestParam String username) {
+    public void delete(@RequestParam @Range(min = 10, max = 99) Long id) {
         // 由adminService调用删除方法，Service中的方法仍可能抛出异常
         throw new ServiceException("测试删除相册时，假设抛出的异常");
     }
