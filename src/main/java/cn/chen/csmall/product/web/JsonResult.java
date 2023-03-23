@@ -1,5 +1,6 @@
 package cn.chen.csmall.product.web;
 
+import cn.chen.csmall.product.ex.ServiceException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,14 @@ public class JsonResult implements Serializable {
         JsonResult jsonResult = new JsonResult();
         jsonResult.setState(1);
         return jsonResult;
+    }
+
+
+    public static JsonResult fail(ServiceException e){
+//        JsonResult jsonResult = new JsonResult();
+//        jsonResult.setState(state);
+//        jsonResult.setMessage(message);
+        return fail(e.getState(), e.getMessage());
     }
 
     /**
