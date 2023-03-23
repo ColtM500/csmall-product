@@ -33,11 +33,7 @@ public class AlbumController {
     @ApiOperationSupport(order = 100)
     public JsonResult addNew(@Valid AlbumAddNewDTO albumAddNewDTO) {
         albumService.addNew(albumAddNewDTO);
-
-        JsonResult jsonResult = new JsonResult();
-        jsonResult.setState(1);
-        jsonResult.setMessage("添加相册成功!");
-        return jsonResult;
+        return JsonResult.ok();
     }
 
     // http://localhost:6080/albums/9825/delete
@@ -47,16 +43,16 @@ public class AlbumController {
     @ApiImplicitParams(value = {
             @ApiImplicitParam(name = "id", value = "相册ID", required = true, dataType = "long")
     })
-    public String delete(@Range(min = 1, message = "删除相册失败，ID值无效！")
+    public JsonResult delete(@Range(min = 1, message = "删除相册失败，ID值无效！")
                          @PathVariable Long id) {
-        return "模拟删除相册成功！Long ID=" + id;
+        return JsonResult.ok();
     }
 
-    @PostMapping("/update")
-    @ApiOperation("修改相册")
-    @ApiOperationSupport(order = 300)
-    public void update(@ApiIgnore HttpSession session) {
-        // 由adminService调用修改方法，Service中的方法仍可能抛出异常
-        throw new ServiceException("测试修改相册时，假设抛出的异常");
-    }
+//    @PostMapping("/update")
+//    @ApiOperation("修改相册")
+//    @ApiOperationSupport(order = 300)
+//    public void update(@ApiIgnore HttpSession session) {
+//        // 由adminService调用修改方法，Service中的方法仍可能抛出异常
+//        throw new ServiceException("测试修改相册时，假设抛出的异常");
+//    }
 }
