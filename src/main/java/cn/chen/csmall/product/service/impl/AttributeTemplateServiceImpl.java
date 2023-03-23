@@ -5,6 +5,7 @@ import cn.chen.csmall.product.mapper.AttributeTemplateMapper;
 import cn.chen.csmall.product.pojo.dto.AttributeTemplateAddNewDTO;
 import cn.chen.csmall.product.pojo.entity.AttributeTemplate;
 import cn.chen.csmall.product.service.IAttributeTemplateService;
+import cn.chen.csmall.product.web.ServiceCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,16 +17,16 @@ public class AttributeTemplateServiceImpl implements IAttributeTemplateService {
 
     @Override
     public void addNew(AttributeTemplateAddNewDTO attributeTemplateAddNewDTO) {
-        // 从参数对象中获取属性模板名称
+        // 从参数对象中获取属性模板ID和名称
+        Long id = attributeTemplateAddNewDTO.getId();
         String name = attributeTemplateAddNewDTO.getName();
         // 调用AttributeTemplateMapper的int countByName(String name)根据名称执行统计
-        int countByName = mapper.countByName(name);
+        int countByName = mapper.countByNameAndNotId(id,name);
         // 判断统计结果是否大于0
         if (countByName>0){
             // 是：抛出异常throw new RuntimeException()
-            Integer state = 2;
             String message = "添加属性模板失败, 属性模板名称已被占用!";
-            throw new ServiceException(state, message);
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
         }
 
         // 创建AttributeTemplate对象
