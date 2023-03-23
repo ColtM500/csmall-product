@@ -5,6 +5,7 @@ import cn.chen.csmall.product.mapper.AlbumMapper;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.pojo.entity.Album;
 import cn.chen.csmall.product.service.IAlbumService;
+import cn.chen.csmall.product.web.ServiceCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,8 @@ public class AlbumServiceImpl implements IAlbumService {
         // 判断统计结果是否大于0
         if (countByName>0){
             // 是：抛出异常throw new RuntimeException()
-            Integer state = 2;
             String message = "添加相册失败, 相册名称已被占用!";
-            throw new ServiceException(state, message);
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
         }
 
         // "".substring(1000); // StringIndexOutOfBoundsException

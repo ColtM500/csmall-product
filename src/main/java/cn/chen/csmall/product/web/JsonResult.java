@@ -29,7 +29,7 @@ public class JsonResult implements Serializable {
      */
     public static JsonResult ok(){
         JsonResult jsonResult = new JsonResult();
-        jsonResult.setState(1);
+        jsonResult.setState(ServiceCode.OK);
         return jsonResult;
     }
 

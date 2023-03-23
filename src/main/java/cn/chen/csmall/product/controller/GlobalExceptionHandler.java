@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public JsonResult handleServiceException(ServiceException e){
-        return JsonResult.fail(e.getState(), e.getMessage());
+        return JsonResult.fail(e);
     }
 
     @ExceptionHandler
