@@ -27,7 +27,7 @@ public class BrandServiceImpl implements IBrandService {
         if (count>0){
             // 是：抛出异常throw new RuntimeException()
             String message = "添加品牌名称失败, 名称已被占用!";
-            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+            throw new ServiceException(22222, message);
         }
         // 创建Brand对象
         Brand brand = new Brand();
