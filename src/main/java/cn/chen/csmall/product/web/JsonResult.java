@@ -17,7 +17,7 @@ public class JsonResult implements Serializable {
     /**
      * 状态码
      */
-    private Integer state;
+    private ServiceCode state;
     /**
      * 操作"失败"时的描述文本
      */
@@ -34,12 +34,12 @@ public class JsonResult implements Serializable {
     }
 
 
-    public static JsonResult fail(ServiceException e){
-//        JsonResult jsonResult = new JsonResult();
-//        jsonResult.setState(state);
-//        jsonResult.setMessage(message);
-        return fail(e.getState(), e.getMessage());
-    }
+//    public static JsonResult fail(ServiceException e){
+////        JsonResult jsonResult = new JsonResult();
+////        jsonResult.setState(state);
+////        jsonResult.setMessage(message);
+//        return fail(e.getState(), e.getMessage());
+//    }
 
     /**
      * 调整代码 设置失败时 有不同的状态码和信息
@@ -47,7 +47,7 @@ public class JsonResult implements Serializable {
      * @param message
      * @return
      */
-    public static JsonResult fail(Integer state, String message){
+    public static JsonResult fail(ServiceCode state, String message){
         JsonResult jsonResult = new JsonResult();
         jsonResult.setState(state);
         jsonResult.setMessage(message);

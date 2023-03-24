@@ -25,7 +25,7 @@ public class AlbumServiceImpl implements IAlbumService {
         if (countByName>0){
             // 是：抛出异常throw new RuntimeException()
             String message = "添加相册失败, 相册名称已被占用!";
-            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+            throw new ServiceException(1111, message);
         }
 
         // "".substring(1000); // StringIndexOutOfBoundsException

@@ -2,6 +2,7 @@ package cn.chen.csmall.product.controller;
 
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.web.JsonResult;
+import cn.chen.csmall.product.web.ServiceCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -23,12 +24,12 @@ import java.util.StringJoiner;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    public JsonResult handleServiceException(ServiceException e){
-        return JsonResult.fail(e);
+    public JsonResult handleServiceException(ServiceException e) {
+        return JsonResult.fail(ServiceCode.ERR_CONFLICT, e.getMessage());
     }
 
     @ExceptionHandler
-    public String handleBindException(BindException e) {
+    public JsonResult handleBindException(BindException e) {
         // 使用以下方式时，如果有多个检查错误，将可以反馈所有错误的信息
         // StringJoiner stringJoiner = new StringJoiner("，", "请求参数格式错误，", "！");
         // List<FieldError> fieldErrors = e.getFieldErrors();
@@ -40,7 +41,17 @@ public class GlobalExceptionHandler {
         // 使用以下方式时，如果有多个检查错误，
         // 将获取其中某1个检查注解中配置的message值，但无法确定到底是哪一个
         String message = e.getFieldError().getDefaultMessage();
-        return message;
+        return JsonResult.fail(ServiceCode.ERR_BAD_REQUEST, message);
+    }
+
+    @ExceptionHandler
+    public JsonResult handleConstraintViolationException(ConstraintViolationException e) {
+        String message = null;
+        Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
+        for (ConstraintViolation<?> constraintViolation : constraintViolations) {
+            message = constraintViolation.getMessage();
+        }
+        return JsonResult.fail(ServiceCode.ERR_BAD_REQUEST, message);
     }
 
     // 关于处理Throwable
@@ -58,16 +69,6 @@ public class GlobalExceptionHandler {
         log.warn("异常信息：{}", e.getMessage());
         log.warn("异常跟踪信息如下：", e); // 输出异常信息时，第1个参数中不要使用占位符
         // e.printStackTrace();
-        return message;
-    }
-
-    @ExceptionHandler
-    public String handleConstraintViolationException(ConstraintViolationException e){
-        String message = null;
-        Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
-        for (ConstraintViolation<?> constraintViolation : constraintViolations){
-            message = constraintViolation.getMessage();
-        }
         return message;
     }
 

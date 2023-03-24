@@ -60,7 +60,7 @@ public class BrandAddNewDTO implements Serializable {
     /**
      * 排序序号
      */
-    @ApiModelProperty(value = "排序序号", required = true, example = "111111")
+    @ApiModelProperty(value = "排序序号", required = true, example = "11")
     @NotNull(message = "添加排序序号失败，必须提交排序序号！")
     private Integer sort;
 
