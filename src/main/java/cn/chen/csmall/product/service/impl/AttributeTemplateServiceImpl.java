@@ -26,7 +26,7 @@ public class AttributeTemplateServiceImpl implements IAttributeTemplateService {
         if (countByName>0){
             // 是：抛出异常throw new RuntimeException()
             String message = "添加属性模板失败, 属性模板名称已被占用!";
-            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+            throw new ServiceException(2222, message);
         }
 
         // 创建AttributeTemplate对象
