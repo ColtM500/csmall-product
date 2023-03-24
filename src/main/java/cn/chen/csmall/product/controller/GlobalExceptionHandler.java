@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public JsonResult handleServiceException(ServiceException e) {
-        return JsonResult.fail(ServiceCode.ERR_CONFLICT, e.getMessage());
+        return JsonResult.fail(e);
     }
 
     @ExceptionHandler
@@ -62,14 +62,14 @@ public class GlobalExceptionHandler {
     // 在处理过程中，可以使用 e.printStackTrace() 以查看异常的跟踪信息
     // 注意：在生产环境中，通常是禁止使用 e.printStackTrace() 的
     @ExceptionHandler
-    public String handleThrowable(Throwable e) {
+    public JsonResult handleThrowable(Throwable e) {
         String message = "服务器忙，请稍后再尝试，或联系系统管理员！（在开发过程中，看到此消息，应该检查出现异常的原因，并补充对此类异常的针对性的处理）";
         log.warn("程序执行过程中出现Throwable！");
         log.warn("异常类型：{}", e.getClass().getName());
         log.warn("异常信息：{}", e.getMessage());
         log.warn("异常跟踪信息如下：", e); // 输出异常信息时，第1个参数中不要使用占位符
         // e.printStackTrace();
-        return message;
+        return JsonResult.fail(ServiceCode.ERR_UNKNOWN, message);
     }
 
 }

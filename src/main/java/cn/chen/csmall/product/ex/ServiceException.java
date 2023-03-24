@@ -1,18 +1,21 @@
 package cn.chen.csmall.product.ex;
 
+import cn.chen.csmall.product.web.ServiceCode;
 import lombok.Getter;
 
 public class ServiceException extends RuntimeException{
 
     /**
-     * 状态码
+     * 状态代码
      * @param message
      */
     @Getter
-    private Integer state;
+    private ServiceCode serviceCode;
 
-    public ServiceException(Integer state, String message){
+    public ServiceException(ServiceCode serviceCode, String message){
         super(message);
-        this.state = state;
+        this.serviceCode = serviceCode;
     }
+
+
 }
