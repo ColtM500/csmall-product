@@ -3,6 +3,7 @@ package cn.chen.csmall.product.service.impl;
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.mapper.AlbumMapper;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.AlbumUpdateNewDTO;
 import cn.chen.csmall.product.pojo.entity.Album;
 import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.pojo.vo.AlbumStandardVO;
@@ -67,6 +68,29 @@ public class AlbumServiceImpl implements IAlbumService {
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
         }
         mapper.deleteById(id);
+    }
+
+    @Override
+    public void updateInfoById(Long id, AlbumUpdateNewDTO albumUpdateNewDTO) {
+        //根据id传过去寻找要修改的相册
+        AlbumStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult==null){
+            String message = "修改相册详情失败，尝试访问的数据不存在！";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+
+        //名称不能重合
+        String name = albumUpdateNewDTO.getName();
+        int count = mapper.countByNameAndNotId(id, name);
+        if (count>0){
+            String message = "修改相册详情失败，相册名称已经被占用！";
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+        }
+
+        Album album = new Album();
+        BeanUtils.copyProperties(albumUpdateNewDTO, album);
+        album.setId(id);
+        mapper.update(album);
     }
 
 

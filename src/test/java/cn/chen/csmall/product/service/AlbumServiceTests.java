@@ -2,6 +2,7 @@ package cn.chen.csmall.product.service;
 
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.AlbumUpdateNewDTO;
 import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.service.impl.AlbumServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,25 @@ public class AlbumServiceTests {
         try {
             service.delete(id);
             System.out.println("查询相册详情成功！结果：");
+        } catch (ServiceException e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
+
+    @Test
+    void update() {
+        Long id = 19L;
+
+        AlbumUpdateNewDTO albumUpdateDTO = new AlbumUpdateNewDTO();
+        albumUpdateDTO.setName("新-测试相册001");
+        albumUpdateDTO.setDescription("新-测试相册的简介001");
+        albumUpdateDTO.setSort(199);
+
+        try {
+            service.updateInfoById(id, albumUpdateDTO);
+            System.out.println("修改相册成功！");
         } catch (ServiceException e) {
             System.out.println(e.getMessage());
         } catch (RuntimeException e) {

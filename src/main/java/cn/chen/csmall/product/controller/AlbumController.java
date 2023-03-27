@@ -2,6 +2,7 @@ package cn.chen.csmall.product.controller;
 
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.AlbumUpdateNewDTO;
 import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.pojo.vo.AlbumStandardVO;
 import cn.chen.csmall.product.service.IAlbumService;
@@ -71,6 +72,16 @@ public class AlbumController {
         return JsonResult.ok(queryResult);
     }
 
-
-
+    // http://localhost:9080/albums/9527/update
+    @PostMapping("/{id:[0-9]+}/update")
+    @ApiOperation("修改相册详情")
+    @ApiOperationSupport(order = 300)
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "id", value = "相册ID", required = true, dataType = "long")
+    })
+    public JsonResult updateInfoById(@Range(min = 1, message = "修改相册详情失败，ID值无效！")
+                                     @PathVariable Long id, @Valid AlbumUpdateNewDTO albumUpdateDTO){
+        albumService.updateInfoById(id, albumUpdateDTO);
+        return JsonResult.ok();
+    }
 }

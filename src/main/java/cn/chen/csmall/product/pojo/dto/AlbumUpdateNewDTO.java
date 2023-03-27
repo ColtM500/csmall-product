@@ -3,10 +3,7 @@ package cn.chen.csmall.product.pojo.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -16,7 +13,7 @@ import java.io.Serializable;
  * @version 0.0.1
  */
 @Data
-public class AlbumAddNewDTO implements Serializable {
+public class AlbumUpdateNewDTO implements Serializable {
 
     /**
      * 相册名称
