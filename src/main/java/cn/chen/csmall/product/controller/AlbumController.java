@@ -48,6 +48,7 @@ public class AlbumController {
     })
     public JsonResult delete(@Range(min = 1, message = "删除相册失败，ID值无效！")
                          @PathVariable Long id) {
+        albumService.delete(id);
         return JsonResult.ok();
     }
 
@@ -69,4 +70,7 @@ public class AlbumController {
         AlbumStandardVO queryResult = albumService.getStandardById(id);
         return JsonResult.ok(queryResult);
     }
+
+
+
 }

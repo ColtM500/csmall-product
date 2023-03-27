@@ -26,4 +26,12 @@ public interface IAlbumService {
      * @return 匹配的相册数据 如果妹有匹配的数据 将抛出异常
      */
     AlbumStandardVO getStandardById(Long id);
+
+    /**
+     * 根据id删除数据
+     * @param id 相册id
+     */
+    void delete(Long id);
+
+
 }

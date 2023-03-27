@@ -58,5 +58,18 @@ public class AlbumServiceTests {
         }
     }
 
+    @Test
+    void delete(){
+        Long id = 1L;
+        try {
+            service.delete(id);
+            System.out.println("查询相册详情成功！结果：");
+        } catch (ServiceException e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
+
 }
 

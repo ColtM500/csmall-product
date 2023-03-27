@@ -59,5 +59,15 @@ public class AlbumServiceImpl implements IAlbumService {
         return queryResult;
     }
 
+    @Override
+    public void delete(Long id) {
+        AlbumStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult != null){
+            String message = "获取相册详情失败, 尝试访问的数据不存在!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+        mapper.deleteById(id);
+    }
+
 
 }
