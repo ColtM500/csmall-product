@@ -54,6 +54,7 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.2</version>
         </dependency>
+
         <!-- MySQL的依赖项 -->
         <dependency>
             <groupId>mysql</groupId>

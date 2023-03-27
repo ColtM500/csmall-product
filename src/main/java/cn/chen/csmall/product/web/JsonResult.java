@@ -22,14 +22,23 @@ public class JsonResult implements Serializable {
      * 操作"失败"时的描述文本
      */
     private String message;
+    /**
+     * 操作成功时响应的数据
+     */
+    private Object data;
 
     /**
      * 调整代码 设置成功时为ok 状态码都为1
      * @return jsonResult结果值
      */
     public static JsonResult ok(){
+        return ok(null);
+    }
+
+    public static JsonResult ok(Object data){
         JsonResult jsonResult = new JsonResult();
         jsonResult.setState(ServiceCode.OK.getValue());
+        jsonResult.setData(data);
         return jsonResult;
     }
 

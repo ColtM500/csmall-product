@@ -2,6 +2,7 @@ package cn.chen.csmall.product.controller;
 
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
+import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.service.IAlbumService;
 import cn.chen.csmall.product.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -17,6 +18,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/albums")
@@ -46,6 +48,15 @@ public class AlbumController {
     public JsonResult delete(@Range(min = 1, message = "删除相册失败，ID值无效！")
                          @PathVariable Long id) {
         return JsonResult.ok();
+    }
+
+    // http://localhost:6080/albums
+    @GetMapping("")
+    @ApiOperation("查询相册列表")
+    @ApiOperationSupport(order = 420)
+    public JsonResult list(){
+        List<AlbumListItemVO> list = albumService.list();
+        return JsonResult.ok(list);
     }
 
 

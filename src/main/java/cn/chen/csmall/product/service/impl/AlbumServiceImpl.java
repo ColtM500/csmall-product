@@ -4,11 +4,14 @@ import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.mapper.AlbumMapper;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.pojo.entity.Album;
+import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.service.IAlbumService;
 import cn.chen.csmall.product.web.ServiceCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AlbumServiceImpl implements IAlbumService {
@@ -37,5 +40,11 @@ public class AlbumServiceImpl implements IAlbumService {
         BeanUtils.copyProperties(albumAddNewDTO, album);
         // 调用albumMapper的int insert(Album album)方法将相册数据插入到数据库
         mapper.insert(album);
+    }
+
+    @Override
+    public List<AlbumListItemVO> list(){
+        List<AlbumListItemVO> list = mapper.list();
+        return list;
     }
 }
