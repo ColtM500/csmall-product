@@ -5,6 +5,7 @@ import cn.chen.csmall.product.mapper.AlbumMapper;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.pojo.entity.Album;
 import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
+import cn.chen.csmall.product.pojo.vo.AlbumStandardVO;
 import cn.chen.csmall.product.service.IAlbumService;
 import cn.chen.csmall.product.web.ServiceCode;
 import org.springframework.beans.BeanUtils;
@@ -47,4 +48,16 @@ public class AlbumServiceImpl implements IAlbumService {
         List<AlbumListItemVO> list = mapper.list();
         return list;
     }
+
+    @Override
+    public AlbumStandardVO getStandardById(Long id) {
+        AlbumStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult == null){
+            String message = "获取相册详情失败, 尝试访问的数据不存在!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+        return queryResult;
+    }
+
+
 }

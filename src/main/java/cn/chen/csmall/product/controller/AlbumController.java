@@ -3,6 +3,7 @@ package cn.chen.csmall.product.controller;
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
+import cn.chen.csmall.product.pojo.vo.AlbumStandardVO;
 import cn.chen.csmall.product.service.IAlbumService;
 import cn.chen.csmall.product.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -59,5 +60,13 @@ public class AlbumController {
         return JsonResult.ok(list);
     }
 
-
+    // http://locaohost:6080/albums/9999
+    @GetMapping("/{id:[0-9]+}")
+    @ApiOperation("根据ID查询相册详情")
+    @ApiOperationSupport(order = 410)
+    public JsonResult getStandardById(@Range(min = 1, message = "获取相册详情失败，ID值无效！")
+                                      @PathVariable Long id){
+        AlbumStandardVO queryResult = albumService.getStandardById(id);
+        return JsonResult.ok(queryResult);
+    }
 }
