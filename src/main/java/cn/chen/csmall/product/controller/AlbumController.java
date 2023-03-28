@@ -35,7 +35,7 @@ public class AlbumController {
     @PostMapping("/add-new")
     @ApiOperation("添加相册")
     @ApiOperationSupport(order = 100)
-    public JsonResult addNew(@Valid AlbumAddNewDTO albumAddNewDTO) {
+    public JsonResult addNew(@Valid @RequestBody AlbumAddNewDTO albumAddNewDTO) {
         albumService.addNew(albumAddNewDTO);
         return JsonResult.ok();
     }
