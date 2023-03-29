@@ -3,12 +3,17 @@ package cn.chen.csmall.product.service.impl;
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.mapper.AttributeTemplateMapper;
 import cn.chen.csmall.product.pojo.dto.AttributeTemplateAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.AttributeTemplateUpdateNewDTO;
 import cn.chen.csmall.product.pojo.entity.AttributeTemplate;
+import cn.chen.csmall.product.pojo.vo.AttributeTemplateListItemVO;
+import cn.chen.csmall.product.pojo.vo.AttributeTemplateStandardVO;
 import cn.chen.csmall.product.service.IAttributeTemplateService;
 import cn.chen.csmall.product.web.ServiceCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AttributeTemplateServiceImpl implements IAttributeTemplateService {
@@ -35,5 +40,52 @@ public class AttributeTemplateServiceImpl implements IAttributeTemplateService {
         BeanUtils.copyProperties(attributeTemplateAddNewDTO, attributeTemplate);
         // 调用AttributeTemplateMapper的int insert(AttributeTemplate AttributeTemplate)方法将相册数据插入到数据库
         mapper.insert(attributeTemplate);
+    }
+
+    @Override
+    public List<AttributeTemplateListItemVO> list() {
+        List<AttributeTemplateListItemVO> list = mapper.list();
+        return list;
+    }
+
+    @Override
+    public AttributeTemplateStandardVO getStandardById(Long id) {
+        AttributeTemplateStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult == null){
+            String message = "获取属性模板详情失败, 尝试访问的数据不在!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+        return queryResult;
+    }
+
+    @Override
+    public void delete(Long id) {
+        AttributeTemplateStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult == null){
+            String message = "删除相册失败, 尝试访问的数据不存在!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+        mapper.deleteById(id);
+    }
+
+    @Override
+    public void updateInfoById(Long id, AttributeTemplateUpdateNewDTO attributeTemplateUpdateNewDTO) {
+        AttributeTemplateStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult == null){
+            String message = "删除相册失败, 尝试访问的数据不存在!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+
+        String name = attributeTemplateUpdateNewDTO.getName();
+        int count = mapper.countByNameAndNotId(id, name);
+        if (count>0){
+            String message = "获取相册详情, 尝试访问的数据不在!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+
+        AttributeTemplate attributeTemplate = new AttributeTemplate();
+        BeanUtils.copyProperties(attributeTemplateUpdateNewDTO, attributeTemplate);
+        attributeTemplate.setId(id);
+        mapper.update(attributeTemplate);
     }
 }

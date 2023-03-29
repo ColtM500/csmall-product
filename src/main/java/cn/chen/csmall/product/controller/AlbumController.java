@@ -73,7 +73,7 @@ public class AlbumController {
         return JsonResult.ok(queryResult);
     }
 
-    // http://localhost:9080/albums/9527/update
+    // http://localhost:6080/albums/9527/update
     @PostMapping("/{id:[0-9]+}/update")
     @ApiOperation("修改相册详情")
     @ApiOperationSupport(order = 300)

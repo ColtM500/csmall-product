@@ -17,7 +17,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping("/categorties")
+@RequestMapping("/categories")
 @Api(tags = "04. 类别管理模块")
 @Validated
 public class CategoryController {
