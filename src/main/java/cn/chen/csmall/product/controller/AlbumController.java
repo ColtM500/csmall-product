@@ -38,7 +38,7 @@ public class AlbumController {
     @ApiOperation("添加相册")
     @ApiOperationSupport(order = 100)
     public JsonResult addNew(@Valid AlbumAddNewDTO albumAddNewDTO) {
-        log.debug("开始处理[添加相册]的请求, 参数:{}", albumAddNewDTO);
+        log.debug("开始处理【添加相册】的请求，参数：{}", albumAddNewDTO);
         albumService.addNew(albumAddNewDTO);
         return JsonResult.ok();
     }
