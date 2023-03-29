@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/albums")
 @Api(tags = "01. 相册管理模块")
@@ -35,7 +37,8 @@ public class AlbumController {
     @PostMapping("/add-new")
     @ApiOperation("添加相册")
     @ApiOperationSupport(order = 100)
-    public JsonResult addNew(@Valid @RequestBody AlbumAddNewDTO albumAddNewDTO) {
+    public JsonResult addNew(@Valid AlbumAddNewDTO albumAddNewDTO) {
+        log.debug("开始处理[添加相册]的请求, 参数:{}", albumAddNewDTO);
         albumService.addNew(albumAddNewDTO);
         return JsonResult.ok();
     }

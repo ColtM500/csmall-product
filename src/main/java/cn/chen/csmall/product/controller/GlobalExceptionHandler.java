@@ -20,7 +20,7 @@ import java.util.StringJoiner;
  */
 
 @Slf4j
-//@RestControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
