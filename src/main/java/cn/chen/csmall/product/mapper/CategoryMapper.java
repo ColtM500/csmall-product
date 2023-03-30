@@ -32,4 +32,6 @@ public interface CategoryMapper {
     int deleteByIds(Long[] idList);
 
     int update(Category category);
+
+    List<CategoryListItemVO> listByParentId(Long parentId);
 }

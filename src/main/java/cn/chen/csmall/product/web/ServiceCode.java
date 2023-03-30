@@ -27,7 +27,20 @@ public enum ServiceCode {
     /**
      * 错误：未知错误
      */
-    ERR_UNKNOWN(99999);
+    ERR_UNKNOWN(99999),
+    /**
+     * 错误：插入数据错误
+     */
+    ERR_INSERT(50000),
+    /**
+     * 错误：删除数据错误
+     */
+    ERR_DELETE(50100),
+    /**
+     * 错误：修改数据错误
+     */
+    ERROR_UPDATE(50200);
+
 
     private Integer value;
 

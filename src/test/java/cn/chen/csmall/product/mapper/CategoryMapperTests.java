@@ -2,6 +2,7 @@ package cn.chen.csmall.product.mapper;
 
 import cn.chen.csmall.product.pojo.entity.Brand;
 import cn.chen.csmall.product.pojo.entity.Category;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @SpringBootTest
 public class CategoryMapperTests {
     @Autowired
@@ -103,5 +105,15 @@ public class CategoryMapperTests {
 
         int rows = mapper.update(category);
         System.out.println("更新完成，受影响的行数：" + rows);
+    }
+
+    @Test
+    void listByParentId() {
+        Long parentId = 0L;
+        List<?> list = mapper.listByParentId(parentId);
+        log.debug("查询列表完成，列表中的数据的数量：{}", list.size());
+        for (Object item : list) {
+            log.debug("{}", item);
+        }
     }
 }
