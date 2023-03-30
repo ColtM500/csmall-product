@@ -76,7 +76,9 @@
 
     <sql id="ListResultMap">
         <if test="true">
-            id, name, pinyin, keywords, sort
+            id, name, pinyin, logo, description,
+            keywords, sort, sales, product_count, comment_count,
+            positive_comment_count, enable
         </if>
     </sql>
 

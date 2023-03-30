@@ -52,7 +52,7 @@ public class BrandServiceImpl implements IBrandService {
     public BrandStandardVO getStandardById(Long id) {
         BrandStandardVO queryResult = mapper.getStandardById(id);
         if (queryResult == null) {
-            String message = "获取相册详情失败，尝试访问的数据不存在！";
+            String message = "获取品牌详情失败，尝试访问的数据不存在！";
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
         }
 
@@ -63,7 +63,7 @@ public class BrandServiceImpl implements IBrandService {
     public void delete(Long id) {
         BrandStandardVO queryResult = mapper.getStandardById(id);
         if (queryResult == null) {
-            String message = "删除相册失败，尝试访问的数据不存在！";
+            String message = "删除品牌失败，尝试访问的数据不存在！";
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
         }
 
@@ -74,14 +74,14 @@ public class BrandServiceImpl implements IBrandService {
     public void updateInfoById(Long id, BrandUpdateNewDTO brandUpdateNewDTO) {
         BrandStandardVO queryResult = mapper.getStandardById(id);
         if (queryResult == null) {
-            String message = "修改相册详情失败，尝试访问的数据不存在！";
+            String message = "修改品牌详情失败，尝试访问的数据不存在！";
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
         }
 
         String name = brandUpdateNewDTO.getName();
         int count = mapper.countByNameAndNotId(id, name);
         if (count > 0) {
-            String message = "修改相册详情失败，相册名称已经被占用！";
+            String message = "修改品牌详情失败，品牌名称已经被占用！";
             throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
         }
 
