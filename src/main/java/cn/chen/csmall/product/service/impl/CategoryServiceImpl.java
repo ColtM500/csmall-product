@@ -84,4 +84,44 @@ public class CategoryServiceImpl implements ICategoryService {
         List<CategoryListItemVO> list = mapper.listByParentId(parentId);
         return list;
     }
+
+    @Override
+    public void delete(Long id) {
+        //调用mapper查询类别详情
+        CategoryStandardVO currentCategory = mapper.getStandardById(id);
+        //如果查询结果中 类别内容为null 则 抛出异常
+        if (currentCategory==null){
+            String message = "删除类别失败, 访问数据不存在!";
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+        }
+        //如果查询结果中 类别isParent=1 则 抛出异常
+        if (currentCategory.getIsParent()==1){
+            String message = "删除类别失败, 当前类别仍包含子集, 不可删除!";
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+        }
+
+        //调用mapper删除对象
+        int rows = mapper.deleteById(id);
+        if (rows!=1){
+            String message = "删除类别失败, 服务器繁忙, 请稍后重试!";
+            throw new ServiceException(ServiceCode.ERR_DELETE, message);
+        }
+
+        //判断此类别父级是否存在其他子级 无 则isParent更新为0
+        //调用mapper中的countByParentId()统计子级数量
+        Long parentId = currentCategory.getParentId();
+        int countByParentId = mapper.countByParentId(parentId);
+        //判断统计结果是否为0 如果是 则将父级isParent更新为0
+        if (countByParentId == 0) {//如果为0了 就把父级id放进它的id 是否为父级改为0 因为它没子级
+            Category updateParentCategory = new Category();
+            updateParentCategory.setId(parentId);
+            updateParentCategory.setIsParent(0);
+            rows = mapper.update(updateParentCategory);
+            if (rows != 1) {
+                String message = "删除类别失败，服务器忙，请稍后再尝试！";
+                throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+            }
+        }
+
+    }
 }

@@ -11,4 +11,6 @@ public interface ICategoryService {
     void addNew(CategoryAddNewDTO categoryAddNewDTO);
 
     List<CategoryListItemVO> listByParentId(Long parentId);
+
+    void delete(Long id);
 }

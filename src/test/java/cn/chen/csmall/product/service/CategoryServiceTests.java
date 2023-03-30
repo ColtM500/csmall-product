@@ -46,4 +46,18 @@ public class CategoryServiceTests {
             log.debug("{}", item);
         }
     }
+
+    @Test
+    void delete() {
+        Long id = 75L;
+
+        try {
+            service.delete(id);
+            System.out.println("删除类别成功！");
+        } catch (ServiceException e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
 }

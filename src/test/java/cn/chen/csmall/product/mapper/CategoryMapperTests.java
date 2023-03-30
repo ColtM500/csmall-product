@@ -116,4 +116,11 @@ public class CategoryMapperTests {
             log.debug("{}", item);
         }
     }
+
+    @Test
+    void countByParentId() {
+        Long parentId = 1L;
+        int count = mapper.countByParentId(parentId);
+        log.debug("根据父级类别【{}】统计数量完成，统计结果：{}", parentId, count);
+    }
 }

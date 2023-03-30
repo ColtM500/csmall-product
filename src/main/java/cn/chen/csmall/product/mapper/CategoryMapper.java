@@ -27,6 +27,8 @@ public interface CategoryMapper {
 
     List<CategoryListItemVO> list();
 
+    int countByParentId(Long parentId);
+
     int insertBatch(List<Category> categories);
 
     int deleteByIds(Long[] idList);
