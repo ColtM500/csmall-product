@@ -41,7 +41,11 @@ public class AlbumServiceImpl implements IAlbumService {
         // 调用BeanUtils.copyProperties()将参数对象的属性值复制到Album对象中
         BeanUtils.copyProperties(albumAddNewDTO, album);
         // 调用albumMapper的int insert(Album album)方法将相册数据插入到数据库
-        mapper.insert(album);
+        int rows =  mapper.insert(album);
+        if (rows!=1){
+            String message = "添加相册失败! 服务器繁忙, 请稍后再试!";
+            throw new ServiceException(ServiceCode.ERR_INSERT, message);
+        }
     }
 
     @Override
@@ -67,7 +71,11 @@ public class AlbumServiceImpl implements IAlbumService {
             String message = "获取相册详情失败, 尝试访问的数据不存在!";
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
         }
-        mapper.deleteById(id);
+        int rows = mapper.deleteById(id);
+        if (rows!=1){
+            String message = "删除相册失败! 服务器繁忙, 请稍后再试!";
+            throw new ServiceException(ServiceCode.ERR_DELETE, message);
+        }
     }
 
     @Override
@@ -90,7 +98,11 @@ public class AlbumServiceImpl implements IAlbumService {
         Album album = new Album();
         BeanUtils.copyProperties(albumUpdateNewDTO, album);
         album.setId(id);
-        mapper.update(album);
+        int rows = mapper.update(album);
+        if (rows!=1){
+            String message = "修改相册详情失败, 服务器繁忙, 请稍后再试!";
+            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+        }
     }
 
 

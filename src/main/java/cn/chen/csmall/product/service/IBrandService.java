@@ -8,9 +8,11 @@ import cn.chen.csmall.product.pojo.vo.AttributeTemplateListItemVO;
 import cn.chen.csmall.product.pojo.vo.AttributeTemplateStandardVO;
 import cn.chen.csmall.product.pojo.vo.BrandListItemVO;
 import cn.chen.csmall.product.pojo.vo.BrandStandardVO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface IBrandService {
     /**
      * 添加品牌

@@ -5,9 +5,11 @@ import cn.chen.csmall.product.pojo.dto.AttributeTemplateUpdateNewDTO;
 import cn.chen.csmall.product.pojo.entity.AttributeTemplate;
 import cn.chen.csmall.product.pojo.vo.AttributeTemplateListItemVO;
 import cn.chen.csmall.product.pojo.vo.AttributeTemplateStandardVO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface IAttributeTemplateService {
     /**
      * 添加相册

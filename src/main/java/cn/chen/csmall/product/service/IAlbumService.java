@@ -4,9 +4,11 @@ import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.pojo.dto.AlbumUpdateNewDTO;
 import cn.chen.csmall.product.pojo.vo.AlbumListItemVO;
 import cn.chen.csmall.product.pojo.vo.AlbumStandardVO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 public interface IAlbumService {
 
     /**

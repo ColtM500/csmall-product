@@ -3,10 +3,14 @@ package cn.chen.csmall.product.service;
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
 import cn.chen.csmall.product.pojo.dto.CategoryAddNewDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
+@Slf4j
 @SpringBootTest
 public class CategoryServiceTests {
     @Autowired
@@ -30,6 +34,16 @@ public class CategoryServiceTests {
             System.out.println(e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
+
+    @Test
+    void listByParentId(){
+        Long parentId = 0L;
+        List<?> list = service.listByParentId(parentId);;
+        log.debug("查询列表完成，列表中的数据的数量：{}", list.size());
+        for (Object item : list){
+            log.debug("{}", item);
         }
     }
 }

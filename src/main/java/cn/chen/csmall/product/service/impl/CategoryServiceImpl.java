@@ -4,12 +4,15 @@ import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.mapper.CategoryMapper;
 import cn.chen.csmall.product.pojo.dto.CategoryAddNewDTO;
 import cn.chen.csmall.product.pojo.entity.Category;
+import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
 import cn.chen.csmall.product.pojo.vo.CategoryStandardVO;
 import cn.chen.csmall.product.service.ICategoryService;
 import cn.chen.csmall.product.web.ServiceCode;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements ICategoryService {
@@ -56,7 +59,11 @@ public class CategoryServiceImpl implements ICategoryService {
         //补全Category对象的属性值: isParent 固定为0 添加子后缀后+1
         category.setIsParent(0);
         //调用mapper对象中的insert()方法插入数据
-        mapper.insert(category);
+        int rows = mapper.insert(category);
+        if (rows!=1){
+            String message = "添加类别失败! 服务器繁忙,请稍后再试!";
+            throw new ServiceException(ServiceCode.ERR_INSERT, message);
+        }
 
         //判断parentId是否不为0 并判断父级类别中的isParent是否为0
         if (parentId!=0 && parentCategory.getIsParent()==0){
@@ -64,7 +71,17 @@ public class CategoryServiceImpl implements ICategoryService {
             Category updateParentCategory = new Category();
             updateParentCategory.setId(parentId);
             updateParentCategory.setIsParent(1);
-            mapper.update(updateParentCategory);
+            rows =  mapper.update(updateParentCategory);
+            if (rows!=1){
+                String message = "添加类别失败! 服务器忙, 请稍后再尝试!";
+                throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+            }
         }
+    }
+
+    @Override
+    public List<CategoryListItemVO> listByParentId(Long parentId) {
+        List<CategoryListItemVO> list = mapper.listByParentId(parentId);
+        return list;
     }
 }

@@ -1,6 +1,7 @@
 package cn.chen.csmall.product.controller;
 
 import cn.chen.csmall.product.pojo.dto.CategoryAddNewDTO;
+import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
 import cn.chen.csmall.product.service.ICategoryService;
 import cn.chen.csmall.product.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -9,11 +10,13 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -32,5 +35,14 @@ public class CategoryController {
         log.debug("开始处理[添加类别]的请求, 参数:{}", categoryAddNewDTO);
         categoryService.addNew(categoryAddNewDTO);
         return JsonResult.ok();
+    }
+
+    //http://localhost:6080/categorties/list-by-parent?parentId=0
+    @GetMapping("/list-by-parent")
+    @ApiOperation("根据父级查询子类级别")
+    @ApiOperationSupport(order = 100)
+    public JsonResult listByParentId(Long parentId){
+        List<CategoryListItemVO> list = categoryService.listByParentId(parentId);
+        return JsonResult.ok(list);
     }
 }
