@@ -20,6 +20,16 @@ public class CategoryServiceImpl implements ICategoryService {
     @Autowired
     private CategoryMapper mapper;
 
+    @Override
+    public void setEnable(Long id) {
+        updateEnableById(id, 1);
+    }
+
+    @Override
+    public void setDisable(Long id) {
+        updateEnableById(id, 0);
+    }
+
     //getter返回属性的值 setter接收一个参数并将其赋值给属性
     @Override
     public void addNew(CategoryAddNewDTO categoryAddNewDTO) {
@@ -123,5 +133,29 @@ public class CategoryServiceImpl implements ICategoryService {
             }
         }
 
+    }
+
+    private void updateEnableById(Long id, Integer enable){
+        //调用mapper对象进行查询  检查类别是否存在
+        CategoryStandardVO currentCategory = mapper.getStandardById(id);
+        if (currentCategory==null){
+            String message = ENABLE_TEXT[enable] + "类别失败，尝试访问的数据不存在！";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+        //检查当前类别的启用状态 如果与参数目标状态相同 则 抛出异常
+        if (currentCategory.getEnable()==enable){
+            String message = ENABLE_TEXT[enable] + "类别失败，当前类别已经处于【" + ENABLE_TEXT[enable] + "】状态！";
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+        }
+
+        //调用mapper对象进行修改  更新类别的启用状态
+        Category updateCategory = new Category();
+        updateCategory.setId(id);
+        updateCategory.setEnable(enable);
+        int rows = mapper.update(updateCategory);
+        if (rows!=1){
+            String message = ENABLE_TEXT[enable] + "类别失败，服务器忙，请稍后再尝试！";
+            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+        }
     }
 }

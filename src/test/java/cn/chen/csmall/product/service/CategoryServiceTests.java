@@ -60,4 +60,32 @@ public class CategoryServiceTests {
             System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
         }
     }
+
+    @Test
+    void setEnable() {
+        Long id = 1L;
+
+        try {
+            service.setEnable(id);
+            System.out.println("启用类别成功！");
+        } catch (ServiceException e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
+
+    @Test
+    void setDisable() {
+        Long id = 1L;
+
+        try {
+            service.setDisable(id);
+            System.out.println("禁用类别成功！");
+        } catch (ServiceException e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
 }
