@@ -58,4 +58,56 @@ public class CategoryController {
         categoryService.delete(id);
         return JsonResult.ok();
     }
+
+    // http://localhost:6080/categories/9527/enable
+    @PostMapping("/{id:[0-9]+}/enable")
+    @ApiOperation("启用类别")
+    @ApiOperationSupport(order = 410)
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "id", value = "类别ID", required = true, dataType = "long")
+    })
+    public JsonResult setEnable(@Range(min = 1, message = "启用类别失败，ID值无效！")
+                                @PathVariable Long id) {
+        categoryService.setEnable(id);
+        return JsonResult.ok();
+    }
+
+    // http://localhost:6080/categories/9527/disable
+    @PostMapping("/{id:[0-9]+}/disable")
+    @ApiOperation("禁用类别")
+    @ApiOperationSupport(order = 420)
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "id", value = "类别ID", required = true, dataType = "long")
+    })
+    public JsonResult setDisable(@Range(min = 1, message = "禁用类别失败，ID值无效！")
+                                 @PathVariable Long id) {
+        categoryService.setDisable(id);
+        return JsonResult.ok();
+    }
+
+    // http://localhost:6080/categories/9527/display
+    @PostMapping("/{id:[0-9]+}/display")
+    @ApiOperation("显示类别")
+    @ApiOperationSupport(order = 510)
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "id", value = "类别ID", required = true, dataType = "long")
+    })
+    public JsonResult setDisplay(@Range(min = 1, message = "启用类别失败，ID值无效！")
+                                @PathVariable Long id) {
+        categoryService.setDisplay(id);
+        return JsonResult.ok();
+    }
+
+    // http://localhost:6080/categories/9527/hidden
+    @PostMapping("/{id:[0-9]+}/hidden")
+    @ApiOperation("隐藏类别")
+    @ApiOperationSupport(order = 520)
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "id", value = "类别ID", required = true, dataType = "long")
+    })
+    public JsonResult setHidden(@Range(min = 1, message = "禁用类别失败，ID值无效！")
+                                 @PathVariable Long id) {
+        categoryService.setHidden(id);
+        return JsonResult.ok();
+    }
 }

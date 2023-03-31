@@ -9,9 +9,13 @@ import java.util.List;
 @Transactional
 public interface ICategoryService {
     String[] ENABLE_TEXT = {"禁用", "启用"};
+    String[] DISPLAY_TEXT = {"隐藏", "显示"};
 
     void setEnable(Long id);
     void setDisable(Long id);
+
+    void setDisplay(Long id);
+    void setHidden(Long id);
 
     void addNew(CategoryAddNewDTO categoryAddNewDTO);
 

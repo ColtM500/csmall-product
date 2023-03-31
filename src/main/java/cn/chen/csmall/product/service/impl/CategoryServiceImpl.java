@@ -30,6 +30,16 @@ public class CategoryServiceImpl implements ICategoryService {
         updateEnableById(id, 0);
     }
 
+    @Override
+    public void setDisplay(Long id) {
+        updateDisplayById(id, 1);
+    }
+
+    @Override
+    public void setHidden(Long id) {
+        updateDisplayById(id, 0);
+    }
+
     //getter返回属性的值 setter接收一个参数并将其赋值给属性
     @Override
     public void addNew(CategoryAddNewDTO categoryAddNewDTO) {
@@ -118,23 +128,30 @@ public class CategoryServiceImpl implements ICategoryService {
         }
 
         //判断此类别父级是否存在其他子级 无 则isParent更新为0
-        //调用mapper中的countByParentId()统计子级数量
         Long parentId = currentCategory.getParentId();
-        int countByParentId = mapper.countByParentId(parentId);
-        //判断统计结果是否为0 如果是 则将父级isParent更新为0
-        if (countByParentId == 0) {//如果为0了 就把父级id放进它的id 是否为父级改为0 因为它没子级
-            Category updateParentCategory = new Category();
-            updateParentCategory.setId(parentId);
-            updateParentCategory.setIsParent(0);
-            rows = mapper.update(updateParentCategory);
-            if (rows != 1) {
-                String message = "删除类别失败，服务器忙，请稍后再尝试！";
-                throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+        if (parentId != 0) {//如果父级id不为0
+            //调用mapper中的countByParentId()统计子级数量
+            int countByParentId = mapper.countByParentId(parentId);
+            //判断统计结果是否为0 如果是 则将父级isParent更新为0
+            if (countByParentId == 0) {
+                Category updateParentCategory = new Category();
+                updateParentCategory.setId(parentId);
+                updateParentCategory.setIsParent(0);
+                rows = mapper.update(updateParentCategory);
+                if (rows != 1) {
+                    String message = "删除类别失败，服务器忙，请稍后再尝试！";
+                    throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+                }
             }
         }
-
     }
 
+
+    /**
+     * 更新是否启用或者禁用
+     * @param id 需要启用的类别的id
+     * @param enable 对应的状态
+     */
     private void updateEnableById(Long id, Integer enable){
         //调用mapper对象进行查询  检查类别是否存在
         CategoryStandardVO currentCategory = mapper.getStandardById(id);
@@ -155,6 +172,36 @@ public class CategoryServiceImpl implements ICategoryService {
         int rows = mapper.update(updateCategory);
         if (rows!=1){
             String message = ENABLE_TEXT[enable] + "类别失败，服务器忙，请稍后再尝试！";
+            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+        }
+    }
+
+    /**
+     * 更新是否显示在导航栏或者隐藏在导航栏
+     * @param id 需要启用的类别的id
+     * @param display 对应的状态
+     */
+    private void updateDisplayById(Long id, Integer display){
+        //调用mapper进行查询 检查类别是否存在
+        CategoryStandardVO currentCategory = mapper.getStandardById(id);
+        if (currentCategory==null){
+            String message = DISPLAY_TEXT[display] + "类别失败，尝试访问的数据不存在！";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+
+        //检查是否处于显示状态 如果与参数状态相同 则 抛出异常
+        if (currentCategory.getIsDisplay()==display){
+            String message = DISPLAY_TEXT[display] + "类别失败，当前类别已经处于【" + DISPLAY_TEXT[display] + "】状态！";
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+        }
+
+        //调用mapper对象进行修改 更新类别的显示作用
+        Category updateCategory = new Category();
+        updateCategory.setId(id);
+        updateCategory.setIsDisplay(display);
+        int rows = mapper.update(updateCategory);
+        if (rows!=1){
+            String message = DISPLAY_TEXT[display] + "类别失败，服务器忙，请稍后再尝试！";
             throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
         }
     }
