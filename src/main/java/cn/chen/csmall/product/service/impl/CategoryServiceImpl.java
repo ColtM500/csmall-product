@@ -3,6 +3,7 @@ package cn.chen.csmall.product.service.impl;
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.mapper.CategoryMapper;
 import cn.chen.csmall.product.pojo.dto.CategoryAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.CategoryUpdateNewDTO;
 import cn.chen.csmall.product.pojo.entity.Category;
 import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
 import cn.chen.csmall.product.pojo.vo.CategoryStandardVO;
@@ -143,6 +144,45 @@ public class CategoryServiceImpl implements ICategoryService {
                     throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
                 }
             }
+        }
+    }
+
+    @Override
+    public CategoryStandardVO getStandardById(Long id) {
+        CategoryStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult==null){
+            String message = "根据id查找信息失败, 访问的数据不存在!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+        return queryResult;
+    }
+
+    @Override
+    public void updateInfoById(Long id, CategoryUpdateNewDTO categoryUpdateNewDTO) {
+        //根据id查询要修改的种类信息
+        CategoryStandardVO queryResult = mapper.getStandardById(id);
+        if (queryResult==null){
+            String message = "修改类别失败, 访问的数据不存在, 请稍后再试!";
+            throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
+        }
+
+        //判断名称是否重合
+        String name = categoryUpdateNewDTO.getName();
+        int countByNameAndNotId = mapper.countByNameAndNotId(id, name);
+        if (countByNameAndNotId>0){
+            String message = "修改类别失败, 名称已被占用, 请稍后再试!";
+            throw new ServiceException(ServiceCode.ERR_CONFLICT, message);
+        }
+
+        //调用mapper进行修改
+        Category updateCategory = new Category();
+        //复制属性 调用id
+        BeanUtils.copyProperties(categoryUpdateNewDTO, updateCategory);
+        updateCategory.setId(id);
+        int rows = mapper.update(updateCategory);
+        if (rows==0){
+            String message = "修改类别详情失败, 服务器繁忙, 请稍后再试!";
+            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
         }
     }
 

@@ -2,7 +2,9 @@ package cn.chen.csmall.product.service;
 
 import cn.chen.csmall.product.ex.ServiceException;
 import cn.chen.csmall.product.pojo.dto.AlbumAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.AlbumUpdateNewDTO;
 import cn.chen.csmall.product.pojo.dto.CategoryAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.CategoryUpdateNewDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,6 +116,37 @@ public class CategoryServiceTests {
             System.out.println(e.getMessage());
         } catch (RuntimeException e) {
             System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
+
+    @Test
+    void update() {
+        Long id = 19L;
+
+        CategoryUpdateNewDTO categoryUpdateNewDTO = new CategoryUpdateNewDTO();
+        categoryUpdateNewDTO.setName("新-测试相册001");
+        categoryUpdateNewDTO.setKeywords("新-测试相册的简介001");
+        categoryUpdateNewDTO.setSort(199);
+        categoryUpdateNewDTO.setIcon("ww");
+
+        try {
+            service.updateInfoById(id, categoryUpdateNewDTO);
+            System.out.println("修改相册成功！");
+        } catch (ServiceException e) {
+            System.out.println(e.getMessage());
+        } catch (RuntimeException e) {
+            System.out.println("出现了某种RuntimeException：" + e.getClass().getName());
+        }
+    }
+
+    @Test
+    void getStandardById() {
+        Long id = 2L;
+        try {
+            Object queryResult = service.getStandardById(id);
+            log.debug("根据id【{}】查询完成，查询结果：{}", id, queryResult);
+        } catch (ServiceException e) {
+            log.debug(e.getMessage());
         }
     }
 }

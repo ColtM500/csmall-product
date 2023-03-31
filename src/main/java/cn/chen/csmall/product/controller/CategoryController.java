@@ -1,7 +1,11 @@
 package cn.chen.csmall.product.controller;
 
+import cn.chen.csmall.product.pojo.dto.AlbumUpdateNewDTO;
 import cn.chen.csmall.product.pojo.dto.CategoryAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.CategoryUpdateNewDTO;
+import cn.chen.csmall.product.pojo.vo.AlbumStandardVO;
 import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
+import cn.chen.csmall.product.pojo.vo.CategoryStandardVO;
 import cn.chen.csmall.product.service.ICategoryService;
 import cn.chen.csmall.product.web.JsonResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -88,7 +92,7 @@ public class CategoryController {
     // http://localhost:6080/categories/9527/display
     @PostMapping("/{id:[0-9]+}/display")
     @ApiOperation("显示类别")
-    @ApiOperationSupport(order = 510)
+    @ApiOperationSupport(order = 430)
     @ApiImplicitParams(value = {
             @ApiImplicitParam(name = "id", value = "类别ID", required = true, dataType = "long")
     })
@@ -101,13 +105,36 @@ public class CategoryController {
     // http://localhost:6080/categories/9527/hidden
     @PostMapping("/{id:[0-9]+}/hidden")
     @ApiOperation("隐藏类别")
-    @ApiOperationSupport(order = 520)
+    @ApiOperationSupport(order = 440)
     @ApiImplicitParams(value = {
             @ApiImplicitParam(name = "id", value = "类别ID", required = true, dataType = "long")
     })
     public JsonResult setHidden(@Range(min = 1, message = "禁用类别失败，ID值无效！")
                                  @PathVariable Long id) {
         categoryService.setHidden(id);
+        return JsonResult.ok();
+    }
+
+    // http://locaohost:6080/categories/9999
+    @GetMapping("/{id:[0-9]+}")
+    @ApiOperation("根据ID查询类别详情")
+    @ApiOperationSupport(order = 410)
+    public JsonResult getStandardById(@Range(min = 1, message = "获取类别详情失败，ID值无效！")
+                                      @PathVariable Long id){
+        CategoryStandardVO queryResult = categoryService.getStandardById(id);
+        return JsonResult.ok(queryResult);
+    }
+
+    // http://localhost:6080/categories/9527/update
+    @PostMapping("/{id:[0-9]+}/update")
+    @ApiOperation("修改类别详情")
+    @ApiOperationSupport(order = 500)
+    @ApiImplicitParams(value = {
+            @ApiImplicitParam(name = "id", value = "类别ID", required = true, dataType = "long")
+    })
+    public JsonResult updateInfoById(@Range(min = 1, message = "修改相册详情失败，ID值无效！")
+                                     @PathVariable Long id, @Valid CategoryUpdateNewDTO categoryUpdateNewDTO){
+        categoryService.updateInfoById(id, categoryUpdateNewDTO);
         return JsonResult.ok();
     }
 }

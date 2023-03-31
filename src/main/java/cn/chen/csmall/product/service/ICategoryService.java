@@ -1,7 +1,9 @@
 package cn.chen.csmall.product.service;
 
 import cn.chen.csmall.product.pojo.dto.CategoryAddNewDTO;
+import cn.chen.csmall.product.pojo.dto.CategoryUpdateNewDTO;
 import cn.chen.csmall.product.pojo.vo.CategoryListItemVO;
+import cn.chen.csmall.product.pojo.vo.CategoryStandardVO;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -22,4 +24,8 @@ public interface ICategoryService {
     List<CategoryListItemVO> listByParentId(Long parentId);
 
     void delete(Long id);
+
+    CategoryStandardVO getStandardById(Long id);
+
+    void updateInfoById(Long id, CategoryUpdateNewDTO categoryUpdateNewDTO);
 }
