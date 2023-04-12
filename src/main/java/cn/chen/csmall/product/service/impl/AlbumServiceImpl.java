@@ -71,6 +71,7 @@ public class AlbumServiceImpl implements IAlbumService {
             String message = "获取相册详情失败, 尝试访问的数据不存在!";
             throw new ServiceException(ServiceCode.ERR_NOT_FOUND, message);
         }
+
         int rows = mapper.deleteById(id);
         if (rows!=1){
             String message = "删除相册失败! 服务器繁忙, 请稍后再试!";
@@ -101,7 +102,7 @@ public class AlbumServiceImpl implements IAlbumService {
         int rows = mapper.update(album);
         if (rows!=1){
             String message = "修改相册详情失败, 服务器繁忙, 请稍后再试!";
-            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+            throw new ServiceException(ServiceCode.ERR_UPDATE, message);
         }
     }
 

@@ -12,56 +12,50 @@ import java.io.Serializable;
 @NoArgsConstructor //无参的构造方法
 @AllArgsConstructor   //全参的构造方法
 @Accessors(chain = true) //支持链式写法
-public class JsonResult implements Serializable {
+public class JsonResult<T> implements Serializable {
 
     /**
      * 状态码
      */
     private Integer state;
     /**
-     * 操作"失败"时的描述文本
+     * 操作“失败”时的描述文本
      */
     private String message;
     /**
-     * 操作成功时响应的数据
+     * 操作“成功”时响应的数据
      */
-    private Object data;
+    private T data; // E > Element / K > Key / V > Value / T > Type
 
-    /**
-     * 调整代码 设置成功时为ok 状态码都为1
-     * @return jsonResult结果值
-     */
-    public static JsonResult ok(){
+    public static JsonResult<Void> ok() {
+        // JsonResult jsonResult = new JsonResult();
+        // jsonResult.setState(ServiceCode.OK.getValue());
+        // return jsonResult;
         return ok(null);
     }
 
-    public static JsonResult ok(Object data){
-        JsonResult jsonResult = new JsonResult();
+    public static <T> JsonResult<T> ok(T data) {
+        JsonResult<T> jsonResult = new JsonResult<>();
         jsonResult.setState(ServiceCode.OK.getValue());
         jsonResult.setData(data);
         return jsonResult;
     }
 
-
-    public static JsonResult fail(ServiceException e){
-//        JsonResult jsonResult = new JsonResult();
-//        jsonResult.setState(state);
-//        jsonResult.setMessage(message);
+    public static JsonResult<Void> fail(ServiceException e) {
+        // JsonResult jsonResult = new JsonResult();
+        // jsonResult.setState(e.getState());
+        // jsonResult.setMessage(e.getMessage());
+        // return jsonResult;
         return fail(e.getServiceCode(), e.getMessage());
     }
 
-    /**
-     * 调整代码 设置失败时 有不同的状态码和信息
-     * @param serviceCode
-     * @param message
-     * @return
-     */
-    public static JsonResult fail(ServiceCode serviceCode, String message){
-        JsonResult jsonResult = new JsonResult();
+    public static JsonResult<Void> fail(ServiceCode serviceCode, String message) {
+        JsonResult<Void> jsonResult = new JsonResult<>();
         jsonResult.setState(serviceCode.getValue());
         jsonResult.setMessage(message);
         return jsonResult;
     }
+
 
 
 }

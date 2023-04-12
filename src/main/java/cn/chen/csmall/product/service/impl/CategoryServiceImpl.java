@@ -95,7 +95,7 @@ public class CategoryServiceImpl implements ICategoryService {
             rows =  mapper.update(updateParentCategory);
             if (rows!=1){
                 String message = "添加类别失败! 服务器忙, 请稍后再尝试!";
-                throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+                throw new ServiceException(ServiceCode.ERR_UPDATE, message);
             }
         }
     }
@@ -141,7 +141,7 @@ public class CategoryServiceImpl implements ICategoryService {
                 rows = mapper.update(updateParentCategory);
                 if (rows != 1) {
                     String message = "删除类别失败，服务器忙，请稍后再尝试！";
-                    throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+                    throw new ServiceException(ServiceCode.ERR_UPDATE, message);
                 }
             }
         }
@@ -182,7 +182,7 @@ public class CategoryServiceImpl implements ICategoryService {
         int rows = mapper.update(updateCategory);
         if (rows==0){
             String message = "修改类别详情失败, 服务器繁忙, 请稍后再试!";
-            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+            throw new ServiceException(ServiceCode.ERR_UPDATE, message);
         }
     }
 
@@ -212,7 +212,7 @@ public class CategoryServiceImpl implements ICategoryService {
         int rows = mapper.update(updateCategory);
         if (rows!=1){
             String message = ENABLE_TEXT[enable] + "类别失败，服务器忙，请稍后再尝试！";
-            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+            throw new ServiceException(ServiceCode.ERR_UPDATE, message);
         }
     }
 
@@ -242,7 +242,7 @@ public class CategoryServiceImpl implements ICategoryService {
         int rows = mapper.update(updateCategory);
         if (rows!=1){
             String message = DISPLAY_TEXT[display] + "类别失败，服务器忙，请稍后再尝试！";
-            throw new ServiceException(ServiceCode.ERROR_UPDATE, message);
+            throw new ServiceException(ServiceCode.ERR_UPDATE, message);
         }
     }
 }

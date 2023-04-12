@@ -10,3 +10,8 @@ logging:
 
 server:
   port: 6080
+
+csmall:
+  jwt:
+    secret-key: kU4jrFA3iuI5jn25u743kfDs7a8pFEwS54hm
+#      duration-in-minute: 14400
