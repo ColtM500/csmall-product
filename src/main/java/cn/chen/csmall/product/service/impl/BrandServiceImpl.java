@@ -16,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -96,5 +97,12 @@ public class BrandServiceImpl implements IBrandService {
         BeanUtils.copyProperties(brandUpdateNewDTO, brand);
         brand.setId(id);
         mapper.update(brand);
+    }
+
+    @Override
+    public void rebuildCache() {
+        brandCacheRepository.deleteList();
+        List<BrandListItemVO> brandList = mapper.list();
+        brandCacheRepository.save(brandList);
     }
 }

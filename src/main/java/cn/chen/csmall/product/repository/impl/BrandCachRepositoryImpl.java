@@ -44,4 +44,13 @@ public class BrandCachRepositoryImpl implements IBrandCacheRepository {
         }
         return brandList;
     }
+
+    @Override
+    public Boolean deleteList() {
+        log.debug("准备删除Redis中的【品牌列表】……");
+        String key = "brandList";
+        Boolean result = redisTemplate.delete(key);
+        log.debug("删除Redis中的品牌列表结果为【{}】",result);
+        return result;
+    }
 }

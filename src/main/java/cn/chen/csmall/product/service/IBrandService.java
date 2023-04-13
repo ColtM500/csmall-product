@@ -45,4 +45,9 @@ public interface IBrandService {
      * @param brandUpdateNewDTO 匹配的品牌信息 如果没有匹配到则数据异常
      */
     void updateInfoById(Long id, BrandUpdateNewDTO brandUpdateNewDTO);
+
+    /**
+     * 重建缓存
+     */
+    void rebuildCache();
 }
