@@ -8,18 +8,23 @@ import cn.chen.csmall.product.pojo.entity.Album;
 import cn.chen.csmall.product.pojo.entity.Brand;
 import cn.chen.csmall.product.pojo.vo.BrandListItemVO;
 import cn.chen.csmall.product.pojo.vo.BrandStandardVO;
+import cn.chen.csmall.product.repository.IBrandCacheRepository;
 import cn.chen.csmall.product.service.IBrandService;
 import cn.chen.csmall.product.web.ServiceCode;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class BrandServiceImpl implements IBrandService {
     @Autowired
     private BrandMapper mapper;
+    @Autowired
+    private IBrandCacheRepository brandCacheRepository;
 
     @Override
     public void addNew(BrandAddNewDTO brandAddNewDTO) {
@@ -44,7 +49,9 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public List<BrandListItemVO> list() {
-        List<BrandListItemVO> list = mapper.list();
+        log.debug("开始处理【查询品牌列表】的业务，无参数");
+//        List<BrandListItemVO> list = mapper.list();
+        List<BrandListItemVO> list = brandCacheRepository.list();
         return list;
     }
 
