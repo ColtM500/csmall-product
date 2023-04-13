@@ -15,6 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +28,7 @@ import java.util.List;
 @RequestMapping("/brand/")
 @Api(tags = "02. 品牌管理模块")
 @Validated
+@Slf4j
 public class BrandController {
     @Autowired
     private IBrandService brandService;
@@ -82,6 +84,16 @@ public class BrandController {
     public JsonResult updateInfoById(@Range(min = 1, message = "修改属性模板详情失败，ID值无效！")
                                      @PathVariable Long id, @Valid BrandUpdateNewDTO brandUpdateNewDTO){
         brandService.updateInfoById(id, brandUpdateNewDTO);
+        return JsonResult.ok();
+    }
+
+    // http://localhost:6080/brand/rebuild-cache
+    @GetMapping("rebuild-cache")
+    @ApiOperation("重建品牌缓存数据")
+    @ApiOperationSupport(order = 500)
+    public JsonResult rebuildCache(){
+        log.debug("开始处理【重建品牌数据缓存】的请求，无参数");
+        brandService.rebuildCache();
         return JsonResult.ok();
     }
 }

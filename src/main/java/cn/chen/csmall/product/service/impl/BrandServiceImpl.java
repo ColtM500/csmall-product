@@ -101,6 +101,7 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public void rebuildCache() {
+        log.debug("开始处理【重建品牌数据缓存】的业务，无参数");
         brandCacheRepository.deleteList();
         List<BrandListItemVO> brandList = mapper.list();
         brandCacheRepository.save(brandList);
