@@ -107,6 +107,15 @@ public class RedisTests {
     }
 
     @Test
+    void delete(){
+        String key = "email1";
+        Boolean result = redisTemplate.delete(key);
+        log.debug("根据key={}执行删除，结果:{}",key,result);
+    }
+
+
+
+    @Test
     void keys(){
         String pattern = "*";
 
